@@ -27,13 +27,94 @@ import Layout from '../views/layout/Layout'
     noCache: true                if fasle ,the page will no be cached(default is false)
   }
 **/
+
+const Index = () => import('@/page/index')
+// const Login = () => import('@/page/Login/login')
+const Login = () => import('@/views/login/index')
+const Register = () => import('@/page/Login/register')
+const Home = () => import('@/page/Home/home')
+const GoodS = () => import('@/page/Goods/goods')
+const goodsDetails = () => import('@/page/Goods/goodsDetails')
+const Cart = () => import('@/page/Cart/cart')
+const order = () => import('@/page/Order/order')
+const user = () => import('@/page/User/user')
+const orderList = () => import('@/page/User/children/order')
+const information = () => import('@/page/User/children/information')
+const addressList = () => import('@/page/User/children/addressList')
+const coupon = () => import('@/page/User/children/coupon')
+const aihuishou = () => import('@/page/User/children/aihuishou')
+const support = () => import('@/page/User/children/support')
+const checkout = () => import('@/page/Checkout/checkout')
+const payment = () => import('@/page/Order/payment')
+const paysuccess = () => import('@/page/Order/paysuccess')
+const Thanks = () => import('@/page/Thanks/thanks')
+const Search = () => import('@/page/Search/search')
+const RefreshSearch = () => import('@/page/Refresh/refreshsearch')
+const RefreshGoods = () => import('@/page/Refresh/refreshgoods')
+const orderDetail = () => import('@/page/User/children/orderDetail')
+const Alipay = () => import('@/page/Order/alipay')
+const Wechat = () => import('@/page/Order/wechat')
+const QQpay = () => import('@/page/Order/qqpay')
+
 export const constantRouterMap = [
-  { path: '/login', component: _import('login/index'), hidden: true },
+  {
+    path: '',
+    component: Index,
+    hidden: true,
+    name: 'index',
+    redirect: '/home',
+    children: [
+      { path: 'home', component: Home, hidden: true },
+      { path: 'goods', component: GoodS, hidden: true },
+      { path: 'goodsDetails', name: 'goodsDetails', component: goodsDetails, hidden: true },
+      { path: 'thanks', name: 'thanks', component: Thanks, hidden: true },
+      { path: '/refreshgoods', name: 'refreshgoods', component: RefreshGoods, hidden: true }
+    ]
+  },
+  { path: '/login', name: 'login', component: Login, hidden: true },
+  { path: '/register', name: 'register', component: Register, hidden: true },
+  { path: '/cart', name: 'cart', component: Cart, hidden: true },
+  { path: '/refreshsearch', name: 'refreshsearch', component: RefreshSearch, hidden: true },
+  {
+    path: '/order',
+    name: 'order',
+    component: order,
+    hidden: true,
+    children: [
+      { path: 'paysuccess', name: 'paysuccess', component: paysuccess, hidden: true },
+      { path: 'payment', name: 'payment', component: payment, hidden: true },
+      { path: '/search', name: 'search', component: Search, hidden: true },
+      { path: 'alipay', name: 'alipay', component: Alipay, hidden: true },
+      { path: 'wechat', name: 'wechat', component: Wechat, hidden: true },
+      { path: 'qqpay', name: 'qqpay', component: QQpay, hidden: true }
+    ]
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component: user,
+    redirect: '/user/orderList',
+    hidden: true,
+    children: [
+      { path: 'orderList', name: '订单列表', component: orderList, hidden: true },
+      { path: 'orderDetail', name: '订单详情', component: orderDetail, hidden: true },
+      { path: 'information', name: '账户资料', component: information, hidden: true },
+      { path: 'addressList', name: '收货地址', component: addressList, hidden: true },
+      { path: 'coupon', name: '我的优惠', component: coupon, hidden: true },
+      { path: 'support', name: '售后服务', component: support, hidden: true },
+      { path: 'aihuishou', name: '以旧换新', component: aihuishou, hidden: true }
+    ]
+  },
+  { path: '/checkout', name: 'checkout', component: checkout, hidden: true },
+  { path: '*', redirect: '/home', hidden: true },
+
+  // todo: 以下为模板原生
+  // { path: '/login', component: _import('login/index'), hidden: true },
   { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
   { path: '/404', component: _import('errorPage/404'), hidden: true },
   { path: '/401', component: _import('errorPage/401'), hidden: true },
   {
-    path: '',
+    path: '/dashboard',
     component: Layout,
     redirect: 'dashboard',
     children: [{
