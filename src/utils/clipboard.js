@@ -1,3 +1,8 @@
+/**
+* author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
+* create:2018-07
+ *  copy
+ */
 import Vue from 'vue'
 import Clipboard from 'clipboard'
 

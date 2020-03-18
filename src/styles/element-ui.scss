@@ -29,8 +29,8 @@
 
  .fixed-width{
   .el-button--mini{
-    padding: 7px 10px;
-    width: 60px;
+    padding: 6px 6px;
+    width: 45px;
   }
  }
 
@@ -44,7 +44,7 @@
    }
  }
 
- //暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
+ //暂时性解决dialog 问题 https://github.com/ElemeFE/element/issues/2461
  .el-dialog {
    transform: none;
    left: 0;
@@ -73,3 +73,16 @@
      }
    }
  }
+
+//dropdown
+ .el-dropdown-menu{
+  a{
+    display: block
+  }
+}
+
+ .el-form-item{
+  .el-select{
+    width: 100%;
+  }
+}

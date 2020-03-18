@@ -1,45 +1,60 @@
 <template>
-  <el-menu class="navbar" mode="horizontal">
-    <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
+  <div class="navbar">
+    <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
 
-    <breadcrumb class="breadcrumb-container"></breadcrumb>
+    <breadcrumb class="breadcrumb-container"/>
 
     <div class="right-menu">
-      <error-log class="errLog-container right-menu-item"></error-log>
+      <template v-if="device!=='mobile'">
+        <error-log class="errLog-container right-menu-item" v-if="false"/>
 
-      <el-tooltip effect="dark" :content="$t('navbar.screenfull')" placement="bottom">
-        <screenfull class="screenfull right-menu-item"></screenfull>
-      </el-tooltip>
+        <el-tooltip :content="$t('navbar.help')" effect="dark" placement="bottom">
+          <i @click="openHelp" class="help el-icon-question"></i>
+        </el-tooltip>
 
-      <lang-select class="international right-menu-item"></lang-select>
+        <el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">
+          <screenfull class="screenfull right-menu-item"/>
+        </el-tooltip>
 
-      <el-tooltip effect="dark" :content="$t('navbar.theme')" placement="bottom">
-        <theme-picker class="theme-switch right-menu-item"></theme-picker>
-      </el-tooltip>
+        <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
+          <size-select class="international right-menu-item"/>
+        </el-tooltip>
+
+        <lang-select class="international right-menu-item"/>
+
+        <el-tooltip :content="$t('navbar.theme')" effect="dark" placement="bottom">
+          <theme-picker class="theme-switch right-menu-item"/>
+        </el-tooltip>
+      </template>
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
-          <i class="el-icon-caret-bottom"></i>
+          <img :src="avatar" class="user-avatar">
+          <i class="el-icon-caret-bottom"/>
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              {{$t('navbar.dashboard')}}
+              {{ $t('navbar.dashboard') }}
             </el-dropdown-item>
           </router-link>
-          <a target='_blank' href="https://github.com/PanJiaChen/vue-element-admin/">
+          <router-link to="/user/info">
             <el-dropdown-item>
-              {{$t('navbar.github')}}
+              {{ $t('navbar.userinfo') }}
             </el-dropdown-item>
-          </a>
+          </router-link>
+          <router-link to="/user/changepwd">
+            <el-dropdown-item>
+              {{ $t('navbar.changePwd') }}
+            </el-dropdown-item>
+          </router-link>
           <el-dropdown-item divided>
-            <span @click="logout" style="display:block;">{{$t('navbar.logOut')}}</span>
+            <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-  </el-menu>
+  </div>
 </template>
 
 <script>
@@ -48,6 +63,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
+import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
 
@@ -57,6 +73,7 @@ export default {
     Hamburger,
     ErrorLog,
     Screenfull,
+    SizeSelect,
     LangSelect,
     ThemePicker
   },
@@ -64,7 +81,8 @@ export default {
     ...mapGetters([
       'sidebar',
       'name',
-      'avatar'
+      'avatar',
+      'device'
     ])
   },
   methods: {
@@ -72,10 +90,14 @@ export default {
       this.$store.dispatch('toggleSideBar')
     },
     logout() {
-      this.$store.dispatch('LogOut').then(() => {
-        location.reload()// In order to re-instantiate the vue-router object to avoid bugs
-      })
-    }
+        window.location.href = process.env.API_PREFIX + '/users/user/logout/?redirect=/#' + this.$route.path
+      //this.$store.dispatch('LogOut',"redirect=/#"+this.$route.path).then(() => {
+      //  location.reload()// In order to re-instantiate the vue-router object to avoid bugs
+      //})
+    },
+    openHelp() {
+      window.open('http://www.bdkyr.com/open_galaxy/cn/');
+    },
   }
 }
 </script>
@@ -111,6 +133,11 @@ export default {
     .screenfull {
       height: 20px;
     }
+    .help {
+      font-size: 25px;
+      vertical-align: 10px;
+      color: blue;
+    }
     .international{
       vertical-align: top;
     }
@@ -121,15 +148,16 @@ export default {
       height: 50px;
       margin-right: 30px;
       .avatar-wrapper {
-        cursor: pointer;
         margin-top: 5px;
         position: relative;
         .user-avatar {
+          cursor: pointer;
           width: 40px;
           height: 40px;
           border-radius: 10px;
         }
         .el-icon-caret-bottom {
+          cursor: pointer;
           position: absolute;
           right: -20px;
           top: 25px;

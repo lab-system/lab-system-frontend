@@ -16,12 +16,15 @@ const messages = {
   zh: {
     ...zhLocale,
     ...elementZhLocale
-  }
+  },
 }
 
 const i18n = new VueI18n({
-  locale: Cookies.get('language') || 'en', // set locale
-  messages // set locale messages
+  // set locale
+  // options: en | zh
+  locale: Cookies.get('language') || 'zh',
+  // set locale messages
+  messages
 })
 
 export default i18n

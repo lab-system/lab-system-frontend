@@ -1,5 +1,6 @@
 module.exports = {
-	NODE_ENV: '"production"',
-	ENV_CONFIG: '"prod"',
-	BASE_API: '"https://api-prod"'
+  NODE_ENV: '"production"',
+  ENV_CONFIG: '"prod"',
+  API_PREFIX: '"/api/v1"',
+  IS_SSO: 1,
 }

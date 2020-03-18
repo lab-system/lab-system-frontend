@@ -1,3 +1,8 @@
+/**
+ * author:laoseng,feilong
+ * create:2018-07
+ *  store  index
+ */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import app from './modules/app'
@@ -15,7 +20,7 @@ const store = new Vuex.Store({
     errorLog,
     permission,
     tagsView,
-    user
+    user,
   },
   getters
 })
