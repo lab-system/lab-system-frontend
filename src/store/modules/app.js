@@ -1,6 +1,4 @@
 /**
- * author:laoseng,feilong
- * create:2018-07
  *  app store
  */
 

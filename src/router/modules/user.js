@@ -1,6 +1,5 @@
 
 /**
- * author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
  * 用户页面路由
  */
 
@@ -12,7 +11,7 @@ const userRouter = {
   redirect: '/user/info',
   name: 'User',
   meta: {
-    title: 'user',
+    title: '用户管理',
     icon: 'user'
   },
   children: [
@@ -20,19 +19,19 @@ const userRouter = {
       path: 'users',
       component: () => import('@/views/user/user'),
       name: 'userList',
-      meta: { title: 'userList' }
+      meta: { title: '用户列表' }
     },
     {
       path: 'roles',
       component: () => import('@/views/user/role'),
       name: 'roleList',
-      meta: { title: 'roleList' }
+      meta: { title: '角色列表' }
     },
     {
       path: 'urls',
       component: () => import('@/views/user/url'),
       name: 'urlList',
-      meta: { title: 'urlList' }
+      meta: { title: '路由权限列表' }
     },
   ]
 }

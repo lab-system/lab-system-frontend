@@ -1,6 +1,4 @@
 /**
-* author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
-* create:2018-07
  * crud 真是操作
  */
 const indexCrud = require('./index')

@@ -1,6 +1,4 @@
 /**
-* author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
-* create:2018-07
  * index js util工具方法
  */
 

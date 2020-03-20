@@ -1,6 +1,4 @@
 /**
- * author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
- * create:2019-01
  *  获取form表结构
  */
 const renderer = require('./index')

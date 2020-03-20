@@ -1,7 +1,3 @@
-<!--
- * author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
- * create:2018-07
--->
 <template>
   <div class="components-container">
     <split-pane split="vertical" @resize="resize" :default-percent='60'>

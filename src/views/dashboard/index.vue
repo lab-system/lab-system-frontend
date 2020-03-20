@@ -39,21 +39,17 @@
         currentRole: 'adminDashboard',
         activeName: 'first',
         tableData: [{
-          name: '项目管理工具',
-          url: 'http://jira.opengalaxy.com',
-          detail: '根据页面提示联系项目经历开通权限',
+          name: '后台接口文档',
+          url: 'http://localhost:8000/docs',
+          detail: '后端接口调用说明',
         }, {
-          name: 'GITLAB代码管理',
-          url: 'http://www.bdkyr.com/open_galaxy/cn/',
-          detail: '代码管理系统'
+          name: '后台管理系统',
+          url: 'http://localhost:8000/xadmin',
+          detail: '后台管理系统'
         },{
           name: 'API文档',
-          url: 'http://www.bdkyr.com/open_galaxy/cn/',
+          url: 'http://localhost:8000/users',
           detail: 'API接口文档'
-        },{
-          name: '跟踪系统',
-          url: 'http://www.bdkyr.com/open_galaxy/cn/',
-          detail: '跟踪系统'
         }]
       }
     },

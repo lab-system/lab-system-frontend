@@ -1,7 +1,3 @@
-<!--
-  * author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
- * create:2018-07
--->
 <template>
   <div class="login-container">
 
@@ -361,16 +357,18 @@
             this.loading = true
             this.$store.dispatch('LoginByUsername', this.loginForm).then((r) => {
               this.loading = false
-              console.log('loginsuccess', r)
-              this.$router.push({path: '/'})
+              this.$router.push({ path: '/dash' })
+              // this.$router.push({ path: '/dashboard' || this.redirect })
+
               // if (this.redirect.indexOf('http') == 0) {
               //   window.location.href = this.redirect
               // } else {
               //   this.$router.push({path: this.redirect || '/'})
               // }
 
-            }).catch(() => {
+            }).catch((e) => {
               this.loading = false
+              console.log('error', e)
             })
           } else {
             return false

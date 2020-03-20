@@ -1,9 +1,3 @@
-<!--
-/**
-* author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
- * create:2018-07
- */
--->
 <template>
   <div class="app-container">
     <avue-crud :data="tableData" :option="tableOpiton" size="mini" @sort-change="sortChange" :page="page" ref="abc"

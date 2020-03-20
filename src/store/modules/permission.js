@@ -50,9 +50,13 @@ const permission = {
       return new Promise(resolve => {
         const { roles } = data
         let accessedRouters
+        console.log('data', data)
+        console.log('roles', roles)
+
         if (roles.includes('admin')) {
           accessedRouters = asyncRouterMap
         } else {
+          console.log('routermap', asyncRouterMap)
           accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         }
         commit('SET_ROUTERS', accessedRouters)

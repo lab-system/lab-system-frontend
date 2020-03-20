@@ -1,6 +1,4 @@
 /*
-* author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
-* create:2018-09
 * desc: 基础共用 api
 */
 

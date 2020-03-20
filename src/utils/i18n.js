@@ -1,6 +1,4 @@
 /**
-* author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
-* create:2018-07
  *  国际化
  */
 // translate router.meta.title, be used in breadcrumb sidebar tagsview

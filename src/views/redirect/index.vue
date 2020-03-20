@@ -1,5 +1,4 @@
 <!---
- * author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
  *desc 跳转，或者标签切换使用
 -->
 <script>

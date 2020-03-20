@@ -1,6 +1,4 @@
 /**
-* author:laoseng(QQ:1572665580),feilong(hhr66@qq.com)
-* create:2018-07
  * 获对象操作基础js，基本操作都在此处完成，初始化，crud，刷新等 by
  */
 const crud = require('./crud')

@@ -8,10 +8,6 @@
       <template v-if="device!=='mobile'">
         <error-log class="errLog-container right-menu-item" v-if="false"/>
 
-        <el-tooltip :content="$t('navbar.help')" effect="dark" placement="bottom">
-          <i @click="openHelp" class="help el-icon-question"></i>
-        </el-tooltip>
-
         <el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">
           <screenfull class="screenfull right-menu-item"/>
         </el-tooltip>
@@ -66,6 +62,7 @@ import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
+import {User} from "../../../api/user";
 
 export default {
   components: {
@@ -90,13 +87,11 @@ export default {
       this.$store.dispatch('toggleSideBar')
     },
     logout() {
-        window.location.href = process.env.API_PREFIX + '/users/user/logout/?redirect=/#' + this.$route.path
-      //this.$store.dispatch('LogOut',"redirect=/#"+this.$route.path).then(() => {
-      //  location.reload()// In order to re-instantiate the vue-router object to avoid bugs
-      //})
-    },
-    openHelp() {
-      window.open('http://www.bdkyr.com/open_galaxy/cn/');
+      // window.location.href = '/users/user/logout/?redirect=/#' + '/login'
+      // window.location.href = process.env.API_PREFIX + '/users/user/logout/?redirect=/#' + this.$route.path
+      this.$store.dispatch('LogOut', 'redirect=/#' + this.$route.path).then(() => {
+        location.reload()// In order to re-instantiate the vue-router object to avoid bugs
+      })
     },
   }
 }

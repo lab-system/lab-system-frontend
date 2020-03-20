@@ -1,10 +1,8 @@
 /**
- * author:laoseng,feilong
- * create:2018-07
  * user信息存储
  */
 import {Login, logout, registerUser, updateUser, User} from '@/api/user'
-import {getToken, setToken} from '@/utils/auth'
+import {getToken, setToken, removeToken} from '@/utils/auth'
 
 const user = {
   state: {
@@ -148,12 +146,13 @@ const user = {
         })
       })
     },
-    LogOut({commit},paramstr) {
+    LogOut({ commit },paramstr) {
       return new Promise((resolve, reject) => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
         User.logout(paramstr).then(response => {
-          //removeToken()
+          removeToken()
+          console.log('logout', response)
           resolve()
         })
       })
@@ -162,7 +161,7 @@ const user = {
     FedLogOut({commit}) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
-        //removeToken()
+        removeToken()
         resolve()
       })
     },
