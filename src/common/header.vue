@@ -8,118 +8,17 @@
               <router-link to="/" title="XMall商城官网">XMall商城</router-link>
             </h1>
           </div>
+          <label style="color: white;width: 100%;font-size: 40px;height:40px;text-align:center;
+          margin-left: 80px;letter-spacing: 10px;">软工实验室门户网站</label>
           <div class="right-box">
-            <div class="nav-list">
-              <el-autocomplete
-                placeholder="请输入商品信息"
-                icon="search"
-                v-model="input"
-                minlength=1
-                maxlength=100
-                :fetch-suggestions="querySearchAsync"
-                @select="handleSelect"
-                :on-icon-click="handleIconClick"
-                @keydown.enter.native="handleIconClick">
-              </el-autocomplete>
-              <router-link to="/goods"><a @click="changePage(2)">全部商品</a></router-link>
-              <router-link to="/thanks"><a @click="changePage(4)">捐赠</a></router-link>
-              <!-- <router-link to="/">Smartisan M1 / M1L</router-link>
-              <router-link to="/">Smartisan OS</router-link>
-              <router-link to="/">欢喜云</router-link>
-              <router-link to="/">应用下载</router-link>
-              <router-link to="/">官方论坛</router-link> -->
-            </div>
-            <div class="nav-aside" ref="aside" :class="{fixed:st}">
-              <div class="user pr">
-<!--                <router-link to="/user">个人中心</router-link>-->
-                <router-link :to="{ path: '/login' }">登录</router-link>
+            <div class="nav-aside" ref="aside" :class="{fixed:st}" style="margin-right: 20px" >
+              <div class="user pr" >
+                <router-link to="/login">登录</router-link>
                 <!--用户信息显示-->
-                <div class="nav-user-wrapper pa" v-if="login">
-                  <div class="nav-user-list">
-                    <ul>
-                      <!--头像-->
-                      <li class="nav-user-avatar">
-                        <div>
-                          <span class="avatar" :style="{backgroundImage:'url('+userInfo.info.file+')'}">
-                          </span>
-                        </div>
-                        <p class="name">{{userInfo.info.username}}</p>
-                      </li>
-                      <li>
-                        <router-link to="/user/orderList">我的订单</router-link>
-                      </li>
-                      <li>
-                        <router-link to="/user/information">账号资料</router-link>
-                      </li>
-                      <li>
-                        <router-link to="/user/addressList">收货地址</router-link>
-                      </li>
-                      <li>
-                        <router-link to="/user/support">售后服务</router-link>
-                      </li>
-                      <li>
-                        <router-link to="/user/coupon">我的优惠</router-link>
-                      </li>
-                      <li>
-                        <a href="javascript:;" @click="_loginOut">退出</a>
-                      </li>
-                    </ul>
-                  </div>
+                <div class="nav-user-wrapper pa" v-if="login" >
                 </div>
               </div>
-              <div class="shop pr" @mouseover="cartShowState(true)" @mouseout="cartShowState(false)"
-                   ref="positionMsg">
-                <router-link to="/cart"></router-link>
-                <span class="cart-num">
-                  <i class="num" :class="{no:totalNum <= 0,move_in_cart:receiveInCart}">{{totalNum}}</i></span>
-                <!--购物车显示块-->
-                <div class="nav-user-wrapper pa active" v-show="showCart">
-                  <div class="nav-user-list">
-                    <div class="full" v-show="totalNum">
-                      <!--购物列表-->
-                      <div class="nav-cart-items">
-                        <ul>
-                          <li class="clearfix" v-for="(item,i) in cartList" :key="i">
-                            <div class="cart-item">
-                              <div class="cart-item-inner">
-                                <a @click="openProduct(item.productId)">
-                                  <div class="item-thumb">
-                                    <img :src="item.productImg">
-                                  </div>
-                                  <div class="item-desc">
-                                    <div class="cart-cell"><h4>
-                                      <a href="" v-text="item.productName"></a>
-                                    </h4>
-                                      <!-- <p class="attrs"><span>白色</span></p> -->
-                                      <h6><span class="price-icon">¥</span><span
-                                        class="price-num">{{item.salePrice}}</span><span
-                                        class="item-num">x {{item.productNum}}</span>
-                                      </h6></div>
-                                  </div>
-                                </a>
-                                <div class="del-btn del" @click="delGoods(item.productId)">删除</div>
-                              </div>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                      <!--总件数-->
-                      <div class="nav-cart-total"><p>共 <strong>{{totalNum}}</strong> 件商品</p> <h5>合计：<span
-                        class="price-icon">¥</span><span
-                        class="price-num">{{totalPrice}}</span></h5>
-                        <h6>
-                          <y-button classStyle="main-btn"
-                                    style="height: 40px;width: 100%;margin: 0;color: #fff;font-size: 14px;line-height: 38px"
-                                    text="去购物车" @btnClick="toCart"></y-button>
-                        </h6>
-                      </div>
-                    </div>
-                    <div v-show="!totalNum" style="height: 313px;text-align: center" class="cart-con">
-                      <p>您的购物车竟然是空的!</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -131,10 +30,28 @@
             <div class="w">
               <ul class="nav-list2">
                 <li>
-                  <router-link to="/"><a @click="changGoods(-1)" :class="{active:choosePage===-1}">首页</a></router-link>
+                  <a @click="changGoods(-1)" :class="{active:choosePage===-1}">首页</a>
                 </li>
                 <li>
-                  <a @click="changGoods(-2)" :class="{active:choosePage===-2}">全部</a>
+                  <a @click="changGoods(-2)" :class="{active:choosePage===-2}">实验室概况</a>
+                </li>
+                <li>
+                  <a @click="changGoods(-3)" :class="{active:choosePage===-3}">科研队伍</a>
+                </li>
+                 <li>
+                  <a @click="changGoods(-4)" :class="{active:choosePage===-4}">人才培养</a>
+                </li>
+                 <li>
+                  <a @click="changGoods(-5)" :class="{active:choosePage===-5}">科研项目</a>
+                </li>
+                <li>
+                  <a @click="changGoods(-6)" :class="{active:choosePage===-6}">实验室文化</a>
+                </li>
+                <li>
+                  <a @click="changGoods(-7)" :class="{active:choosePage===-7}">资源共享</a>
+                </li>
+                 <li>
+                  <a @click="changGoods(-8)" :class="{active:choosePage===-8}">系统管理</a>
                 </li>
                 <li v-for="(item,i) in navList" :key="i">
                   <a @click="changGoods(i, item)" :class="{active:i===choosePage}">{{item.picUrl}}</a>
@@ -221,18 +138,42 @@
         })
       },
       // 导航栏文字样式改变
-      changePage (v) {
+      changePage(v) {
         this.choosePage = v
       },
-      changGoods (v, item) {
+      changGoods(v, item) {
         this.changePage(v)
         if (v === -1) {
-          this.$router.push({
-            path: '/'
+        this.$router.push({
+            path: '/home'
           })
         } else if (v === -2) {
           this.$router.push({
-            path: '/refreshgoods'
+            path: '/goods'
+          })
+        } else if (v === -3) {
+          this.$router.push({
+            path: '/team'
+          })
+        } else if (v === -4) {
+          this.$router.push({
+            path: '/train'
+          })
+        } else if (v === -5) {
+          this.$router.push({
+            path: '/project'
+          })
+        } else if (v === -6) {
+          this.$router.push({
+            path: '/culture'
+          })
+        } else if (v === -7) {
+          this.$router.push({
+            path: '/share'
+          })
+        } else if (v === -8) {
+          this.$router.push({
+            path: 'login'
           })
         } else {
           // 站内跳转
@@ -245,7 +186,7 @@
         }
       },
       // 搜索框提示
-      loadAll () {
+      loadAll() {
         let params = {
           params: {
             key: this.input
@@ -323,7 +264,7 @@
       },
       // 控制顶部
       navFixed () {
-        if (this.$route.path === '/goods' || this.$route.path === '/home' || this.$route.path === '/goodsDetails' || this.$route.path === '/thanks') {
+        if (this.$route.path === '/goods' ||this.$route.path === '/team' || this.$route.path === '/home' || this.$route.path === '/goodsDetails' || this.$route.path === '/thanks') {
           var st = document.documentElement.scrollTop || document.body.scrollTop
           st >= 100 ? this.st = true : this.st = false
           // 计算小圆当前位置
@@ -348,13 +289,25 @@
         })
       },
       // 通过路由改变导航文字样式
-      getPage () {
+      getPage() {
         let path = this.$route.path
         // let fullPath = this.$route.fullPath
         if (path === '/' || path === '/home') {
           this.changePage(-1)
         } else if (path === '/goods') {
           this.changePage(-2)
+        } else if (path === '/team') {
+          this.changePage(-3)
+        } else if (path === 'train') {
+          this.changePage(-4)
+        } else if (path === 'project') {
+          this.changePage(-5)
+        } else if (path === 'culture') {
+          this.changePage(-6)
+        } else if (path === 'share') {
+          this.changePage(-7)
+        } else if (path === 'login') {
+          this.changePage(-8)
         } else {
           this.changePage(0)
         }
@@ -383,6 +336,9 @@
       if (typeof (this.$route.query.key) !== undefined) {
         this.input = this.$route.query.key
       }
+    },
+    changGoods3() {
+      this.$router.push({ path: '/team' })
     },
     components: {
       YButton
@@ -1007,6 +963,7 @@
       justify-content: space-between;
     }
     .nav-list2 {
+      list-style:none;
       height: 28px;
       line-height: 28px;
       display: flex;
@@ -1015,13 +972,13 @@
       li:first-child {
         padding-left: 0;
         a {
-          padding-left: 10px;
+          padding-left: 30px;
         }
       }
       li {
         position: relative;
         float: left;
-        padding-left: 2px;
+        padding-left: 30px;
         a {
           display: block;
           padding: 0 10px;

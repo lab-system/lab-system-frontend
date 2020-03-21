@@ -1,78 +1,66 @@
 <template>
   <div class="home">
 
-  <div v-loading="loading" element-loading-text="加载中..." style="min-height: 35vw;" v-if="!error">
-    <div class="banner" >
-      <div class="bg" ref="bg"
-        @mouseover="bgOver($refs.bg)" @mousemove="bgMove($refs.bg,$event)" @mouseout="bgOut($refs.bg)">
-        <transition name="fade">
-          <div v-for="(item, i) in banner" v-if="i===mark" :key="i" style="position:absolute" @click="linkTo(item)" @mouseover="stopTimer" @mouseout="startTimer">
-            <img v-if="item.picUrl" class="img1" :src="item.picUrl"/>
-            <img v-if="item.picUrl2"  class="img2 a" :src="item.picUrl2"/>
-            <img v-if="item.picUrl3"  class="img3 b" :src="item.picUrl3"/>
-          </div>
-        </transition>
-      </div>
-      <div class="page">
-        <ul class="dots">
-          <li class="dot-active" v-for="(item, i) in banner" :class="{ 'dot':i!=mark }" :key="i" @click="change(i)"></li>
-        </ul>
-      </div>
-    </div>
-
-    <div v-for="(item,i) in home" :key="i">
-
-      <div class="activity-panel" v-if="item.type === 1">
-        <ul class="box">
-          <li class="content" v-for="(iitem,j) in item.panelContents" :key="j" @click="linkTo(iitem)">
-            <img class="i" :src="iitem.picUrl">
-            <a class="cover-link"></a>
-          </li>
-        </ul>
-      </div>
-
-      <section class="w mt30 clearfix" v-if="item.type === 2">
-        <y-shelf :title="item.name">
-          <div slot="content" class="hot">
-            <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j"></mall-goods>
-          </div>
-        </y-shelf>
-      </section>
-
-      <section class="w mt30 clearfix" v-if="item.type === 3">
-        <y-shelf :title="item.name">
-          <div slot="content" class="floors" >
-            <div class="imgbanner" v-for="(iitem,j) in item.panelContents" :key="j" v-if="iitem.type === 2 || iitem.type === 3" @click="linkTo(iitem)">
-              <img v-lazy="iitem.picUrl">
-              <a class="cover-link"></a>
+  <div  style="min-height: 35vw;" v-if="!error">
+     <div class="row" style="height: 180px">
+        <div class="col-md-6" style="height: 200px">
+          <div class="box box-default" style="height: 200px">
+            <div class="box-header with-border" style="list-style: none">
+            <i class="fa fa-bullhorn"></i>
+              <h3 class="box-title" style="display:inline">公告栏</h3>
             </div>
-            <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j+'key'" v-if="iitem.type != 2 && iitem.type != 3"></mall-goods>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="vueBox">
+    <div class="marquee">
+        <div class="marquee_title">
+            <span style="font-size: 24px">最新消息</span>
+        </div>
+        <div class="marquee_box">
+           <a href="" style="font-size: 26px;word-spacing:15px;heght: 60px;display: block;line-height:50px">热烈祝贺xx老师荣膺xxxxx称号!</a>
+        </div>
+    </div>
+     <div class="marquee">
+        <div class="marquee_title">
+            <span style="font-size: 24px">毕业资讯</span>
+        </div>
+        <div class="marquee_box">
+           <a style="font-size: 26px;height: 60px;display: inline;line-height:50px">2021年硕士研究生毕业终期答辩将定于x月x日举行</a>
+        </div>
+    </div>
+</div>
+            </div>
+            <!-- /.box-body -->
           </div>
-        </y-shelf>
-      </section>
+          <!-- /.box -->
+        </div>
+  </div>
+     <div class="col-md-6" style="height: 200px">
+          <div class="box box-solid" style="height: 180px">
+            <div class="box-header with-border">
+              <h3 class="box-title">留言板</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div style="height: 60px">
 
-      </div>
+              </div>
+              <div id="app" style="text-align: end">
+        <input type="text" v-model="txt">
+        <button @click="send_msg">留言</button>
+        <ul>
+            <li v-for="(msg, i) in msg_arr" @click="delete_msg(i)">{{ msg }}</li>
+        </ul>
     </div>
-
-    <div class="no-info" v-if="error">
-      <div class="no-data">
-        <img src="/static/images/error.png">
-        <br> 抱歉！出错了...
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
       </div>
-    </div>
-
-    <el-dialog
-      title="通知"
-      :visible.sync="dialogVisible"
-      width="30%"
-      style="width:70%;margin:0 auto">
-      <span>首页已升级！XPay个人支付收款系统已上线，赶快去支付体验吧！</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">知道了</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
+<script src="js/vue.min.js"></script>
 <script>
   import { productHome } from '@/api/index'
   import YShelf from '@/components/shelf'
@@ -112,6 +100,12 @@
       },
       change (i) {
         this.mark = i
+      },
+      send_msg() {
+        if (this.txt) {
+          this.msg_arr.push(this.txt);
+          this.txt = ''
+        }
       },
       startTimer () {
         this.timer = setInterval(this.autoPlay, 2500)
@@ -500,5 +494,91 @@
       height: 100%;
     }
   }
+
+   .color-palette {
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+    }
+
+    .color-palette-set {
+      margin-bottom: 15px;
+    }
+
+    .color-palette span {
+      display: none;
+      font-size: 12px;
+    }
+
+    .color-palette:hover span {
+      display: block;
+    }
+
+    .color-palette-box h4 {
+      position: absolute;
+      top: 100%;
+      left: 25px;
+      margin-top: -40px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      display: block;
+      z-index: 7;
+    }
+
+  .marquee {
+	width: 100%;
+	height: 70px;
+	align-items: center;
+	color: #3A3A3A;
+	background-color: #b3effe;
+	display: flex;
+	box-sizing: border-box;
+  margin-top: 10px;
+}
+
+.marquee_title {
+	padding: 0 20px;
+	height: 30px;
+	font-size: 14px;
+	border-right: 1px solid #d8d8d8;
+	align-items: center;
+}
+
+.marquee_box {
+	display: block;
+	position: relative;
+	width: 80%;
+	height: 60px;
+	overflow: hidden;
+  border-style: dashed;
+  text-align: center;
+}
+
+.marquee_list {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.marquee_top {
+	transition: all 0.5s;
+	margin-top: -30px
+}
+
+.marquee_list li {
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	padding-left: 20px;
+}
+
+.marquee_list li span {
+	padding: 0 2px;
+}
+
+.red {
+	color: #FF0101;
+}
+
 
 </style>

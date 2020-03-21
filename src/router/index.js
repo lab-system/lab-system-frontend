@@ -35,6 +35,12 @@ const Index = () => import('@/page/index')
 // const Register = () => import('@/page/Login/register')
 const Home = () => import('@/page/Home/home')
 const GoodS = () => import('@/page/Goods/goods')
+const Team = () => import('@/page/Team/team')
+const Train = () => import('@/page/Train/train')
+const Project = () => import('@/page/Project/project')
+const Culture = () => import('@/page/Culture/culture')
+const Share = () => import('@/page/Share/share')
+const Login = () => import('@/views/user/login/index')
 const goodsDetails = () => import('@/page/Goods/goodsDetails')
 const Cart = () => import('@/page/Cart/cart')
 const order = () => import('@/page/Order/order')
@@ -68,6 +74,11 @@ export const constantRouterMap = [
     children: [
       { path: 'home', component: Home, hidden: true },
       { path: 'goods', component: GoodS, hidden: true },
+      { path: 'team', component: Team, hidden: true },
+      { path: 'train', component: Train, hidden: true },
+      { path: 'project', component: Project, hidden: true },
+      { path: 'culture', component: Culture, hidden: true },
+      { path: 'share', component: Share, hidden: true },
       { path: 'goodsDetails', name: 'goodsDetails', component: goodsDetails, hidden: true },
       { path: 'thanks', name: 'thanks', component: Thanks, hidden: true },
       { path: '/refreshgoods', name: 'refreshgoods', component: RefreshGoods, hidden: true }
