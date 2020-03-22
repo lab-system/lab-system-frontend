@@ -23,7 +23,8 @@ import * as filters from './filters' // global filters
 import Avue from '@smallwei/avue';
 import '@/styles/index_avue.css';
 
-Vue.use(Avue, { size: 'mini'});
+// Vue.use(Avue, { size: 'mini'});
+Vue.use(Avue, { size: 'small'});
 
 import VCharts from 'v-charts'
 Vue.use(VCharts)
