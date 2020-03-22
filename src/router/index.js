@@ -10,6 +10,7 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/views/layout/Layout'
 import userRouter from './modules/user'
+import projectRouter from './modules/project'
 /** note: Submenu only appear when children.length>=1
  *  detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  **/
@@ -141,19 +142,19 @@ export const constantRouterMap = [
         path: '/user/resetpwd',
         component: () => import('@/views/user/pwdreset'),
         name: 'resetPassword',
-        meta: {title: 'userResetPwd'}
+        meta: { title: 'userResetPwd' }
       },
       {
         path: '/user/changepwd',
         component: () => import('@/views/user/pwdchange'),
         name: 'changePassword',
-        meta: {title: 'userChangePwd'}
+        meta: { title: 'userChangePwd' }
       },
       {
         path: '/user/info',
         component: () => import('@/views/user/info'),
         name: 'userinfo',
-        meta: {title: 'userInfo'}
+        meta: { title: 'userInfo' }
       },
     ]
   },
@@ -190,12 +191,6 @@ export const constantRouterMap = [
       }
     ]
   }
-  // {
-  //   path: '/dashboard',
-  //   component: () => import('@/views/dashboard/index'),
-  //   name: 'Dashboard',
-  //   meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
-  // }
 ]
 
 export default new Router({
@@ -204,6 +199,7 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
+  projectRouter,
   userRouter,
   { path: '*', redirect: '/404', hidden: true }
 ]

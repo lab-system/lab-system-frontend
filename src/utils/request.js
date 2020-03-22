@@ -36,43 +36,47 @@ service.interceptors.response.use(
   response => response,
   error => {
     var message = ''
-    console.log("=====>", error.response.status)
-    console.log('response', error.response)
-    switch (error.response.status) {
-      case 401:
-        message = '未授权，请登录!'
-        break
-      case 403:
-        message = '无权限!'
-        break
-      case 400:
-        if (error.response.config.url.indexOf('/login') >= 0) {
-          message = '用户名密码错误!'
-        } else {
-          for(var key in error.response.data){//遍历json对象的每个key/value对,p为key
-            message=error.response.data[key][0]
+    if (error.response) {
+      console.log('response', error.response)
+      console.log("=====>", error.response.status)
+      switch (error.response.status) {
+        case 401:
+          message = '未授权，请登录!'
+          break
+        case 403:
+          message = '无权限!'
+          break
+        case 400:
+          if (error.response.config.url.indexOf('/login') >= 0) {
+            message = '用户名密码错误!'
+          } else {
+            for (var key in error.response.data){//遍历json对象的每个key/value对,p为key
+              message=error.response.data[key][0]
+            }
           }
-        }
-        break
-      case 404:
-        message = '请求不存在!'
-        break
-      case 500:
-        var errmsg=""
-        if(error.response.hasOwnProperty("detail")){
-          errmsg=error.response.hasOwnProperty("detail")
-        }
-        message = '服务异常:'+errmsg
-        break
-      case 502:
-        var errmsg=""
-        if(error.response.hasOwnProperty("detail")){
-          errmsg=error.response.hasOwnProperty("detail")
-        }
-        message = '服务异常:'+errmsg
-        break
-      default:
-        message = 'Oops, 出错啦!'
+          break
+        case 404:
+          message = '请求不存在!'
+          break
+        case 500:
+          var errmsg = ""
+          if(error.response.hasOwnProperty("detail")){
+            errmsg=error.response.hasOwnProperty("detail")
+          }
+          message = '服务异常:'+ errmsg
+          break
+        case 502:
+          var errmsg = ""
+          if(error.response.hasOwnProperty("detail")){
+            errmsg=error.response.hasOwnProperty("detail")
+          }
+          message = '服务异常:' + errmsg
+          break
+        default:
+          message = 'Oops, 出错啦!'
+      }
+    } else {
+      console.log('err' + error)
     }
     Message({
       message: message,
