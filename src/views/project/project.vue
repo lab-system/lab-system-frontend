@@ -15,6 +15,7 @@
       <el-table-column prop="start_t" label="开始时间"/>
       <el-table-column prop="end_t" label="结束时间"/>
       <el-table-column prop="leader" label="项目负责人"/>
+<!--      <el-table-column label="项目负责人">{{ leaderName }}</el-table-column>-->
       <el-table-column :formatter="formatterStatus" prop="is_active" label="状态"/>
 
       <el-table-column label="操作">
@@ -175,24 +176,18 @@ export default {
       })
     },
     handleEdit(index, row) {
+      console.log('row', row)
       this.projectDialogVisible = true
       this.isCreateForm = false
-      var ad = row['address'].split(' ')
-      console.log('ad', ad)
-      // console.log('code', TextToCode[ad[0]].code)
-      // var add = new Array()
-      // ad.map(item => {
-      //     add.push(TextToCode[item].code)
-      // })
       this.projectForm = row
-      if (ad.length > 0 && ad[0] != '' && ad[0] != 'undefined') {
-        this.projectForm.addre = new Array(TextToCode[ad[0]].code,TextToCode[ad[0]][ad[1]].code,TextToCode[ad[0]][ad[1]][ad[2]].code)
-      }
-      if (ad.length > 3) {
-        this.projectForm.detailedAddress = ad[ad.length - 1]
-      }
-      // this.projectForm.addre = add
-      // console.log(this.projectForm.addre)
+      this.users = []
+      Users.list().then(response => {
+        if (response) {
+          this.users = response.results
+        }
+      }).catch(e => {
+        console.log(e)
+      })
     },
     handleDelete(id) {
       this.$confirm('是否删除此项目', '提示', {
@@ -259,62 +254,62 @@ export default {
       console.log('formAdd', this.projectForm)
       if (isExcuteFlag) {
         this.$refs[formName].validate((valid) => {
-        if (!valid) {
-          this.$notify.error({
-            title: '输入错误',
-            message: '请按提示输入正确内容'
-          })
-          return
-        }
-        var dataform = this.$refs[formName].model
-        if (dataform == null || dataform.id == null || dataform.id === '') {
-          createProject(dataform).then(response => {
-            console.log('form：', response)
-            if (response.status == 201) {
+          if (!valid) {
+            this.$notify.error({
+              title: '输入错误',
+              message: '请按提示输入正确内容'
+            })
+            return
+          }
+          var dataform = this.$refs[formName].model
+          if (dataform == null || dataform.id == null || dataform.id === '') {
+            createProject(dataform).then(response => {
+              console.log('form：', response)
+              if (response.status == 201) {
                 this.projectDialogVisible = false
                 this.$notify.success({
-                title: '成功',
-                message: '创建成功'
-              })
-              this.$refs[formName].resetFields()
-              this.getList()
-            } else {
-                this.$notify.error({
-                    title: '失败',
-                    message: response
+                  title: '成功',
+                  message: '创建成功'
                 })
-            }
-          }).catch(response => {
-            this.$notify.error({
-              title: '失败',
-              message: '操作失败'
-            })
-          })
-        } else {
-          console.log("update")
-          updateProject(dataform).then(response => {
-            console.log('formUpdate：', response)
-            if (response.data.errno == '0') {
-              this.projectDialogVisible = false
-              this.$notify.success({
-                title: '成功',
-                message: '修改用户成功'
-              })
-              this.getList()
-            } else {
+                this.$refs[formName].resetFields()
+                this.getList()
+              } else {
+                this.$notify.error({
+                  title: '失败',
+                  message: response
+                })
+              }
+            }).catch(response => {
               this.$notify.error({
                 title: '失败',
-                message: response.data.errmsg
+                message: '操作失败'
               })
-            }
-          }).catch(response => {
-            this.$notify.error({
-              title: '失败',
-              message: '操作失败'
             })
-          })
-        }
-      })
+          } else {
+            console.log('update', dataform)
+            updateProject(dataform.id, dataform).then(response => {
+              console.log('formUpdate：', response)
+              if (response.status === 200) {
+                this.projectDialogVisible = false
+                this.$notify.success({
+                  title: '成功',
+                  message: '修改项目成功'
+                })
+                this.getList()
+              } else {
+                this.$notify.error({
+                  title: '失败',
+                  message: response
+                })
+              }
+            }).catch(response => {
+              this.$notify.error({
+                title: '失败',
+                message: '操作失败'
+              })
+            })
+          }
+        })
       }
     },
     getList() {
@@ -322,11 +317,14 @@ export default {
         console.log('listResponse', response)
         var list = response.data.results
         this.total = response.data.count
+        list.map(p => {
+          Users.get(p.leader).then(response => {
+            p.leader = response.cname
+          }).catch(e => {
+            console.log(e)
+          })
+        })
         this.tableData = list
-        // const slist = this.list
-        // slist.forEach(item => {
-        //   this.stocksName.push(item.name)
-        // })
       }).catch((e) => {
         console.log(e)
         this.tableData = []

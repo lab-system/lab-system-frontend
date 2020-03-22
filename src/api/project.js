@@ -22,16 +22,16 @@ export function createProject(data) {
 export function getProjectDetail(id) {
   return request({
     url: '/projects/project/' + id + '/',
-    method: 'post'
+    method: 'get'
   })
 }
 
 // 编辑项目
-export function updateProject(id, params) {
+export function updateProject(id, data) {
   return request({
-    url: '/projects/project' + id + '/',
+    url: '/projects/project/' + id + '/',
     method: 'put',
-    params
+    data: data
   })
 }
 
