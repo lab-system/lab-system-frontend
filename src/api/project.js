@@ -47,7 +47,7 @@ export function partUpdateProject(id, params) {
 // 删除项目
 export function deleteProject(id) {
   return request({
-    url: '/projects/project' + id + '/',
+    url: '/projects/project/' + id + '/',
     method: 'delete'
   })
 }

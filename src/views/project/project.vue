@@ -195,23 +195,23 @@ export default {
       // console.log(this.projectForm.addre)
     },
     handleDelete(id) {
-      this.$confirm('是否删除此仓库', '提示', {
+      this.$confirm('是否删除此项目', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         center: true
       }).then(() => {
         deleteProject(id).then(response => {
           console.log('delete', response)
-          if (response.data.errno == '0') {
+          if (response.status === 204) {
             this.$notify.success({
               title: '成功',
-              message: '删除仓库成功'
+              message: '删除项目成功'
             })
             this.getList()
           } else {
             this.$notify.error({
               title: '失败',
-              message: response.data.errmsg
+              message: response.data
             })
           }
         }).catch(response => {
