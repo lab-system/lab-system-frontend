@@ -36,11 +36,11 @@ export function updateProject(id, data) {
 }
 
 // 部分修改
-export function partUpdateProject(id, params) {
+export function partUpdateProject(id, data) {
   return request({
-    url: '/projects/project' + id + '/',
+    url: '/projects/project/' + id + '/',
     method: 'patch',
-    params
+    data: data
   })
 }
 

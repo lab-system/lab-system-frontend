@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import '@/styles/index.scss' // global css
 
+
 import App from './App'
 import router from './router'
 import store from './store'
@@ -23,6 +24,7 @@ import * as filters from './filters' // global filters
 import Avue from '@smallwei/avue';
 import '@/styles/index_avue.css';
 
+
 // Vue.use(Avue, { size: 'mini'});
 Vue.use(Avue, { size: 'small'});
 
@@ -30,9 +32,11 @@ import VCharts from 'v-charts'
 Vue.use(VCharts)
 
 Vue.use(Element, {
-  size: Cookies.get('size') || 'mini', // set element-ui default size
+  // size: Cookies.get('size') || 'mini', // set element-ui default size
+  size: Cookies.get('size') || 'medium', // 修改默认
   i18n: (key, value) => i18n.t(key, value)
 })
+
 
 Vue.use(formCreate)
 

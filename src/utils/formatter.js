@@ -40,6 +40,23 @@ const auditStatus = (row, column, cellValue) => {
   return str
 }
 
+// 0-待审核，1-审核通过，2-驳回，3-撤销
+const goodStatus = (row, column, cellValue) => {
+  var str = ''
+  switch (cellValue) {
+    case 0:
+      str = '等待审核'
+      break
+    case 1:
+      str = '审核通过'
+      break
+    case 2:
+      str = '驳回'
+      break
+  }
+  return str
+}
+
 var propNameArr = []
 var orderByArr = []
 const sortChange = (column) => {
@@ -73,9 +90,23 @@ const sortChange = (column) => {
   }
 }
 
+let validateWeekCount = (rule, value, callback) => {
+  if (value) {
+    const rgx = /^[1-9][0-9]?$/
+    // if (value.match(rgx) == null) {
+    if (!rgx.test(value)) {
+      return callback(new Error('请输入正整数'))
+    } else {
+      callback()
+    }
+  }
+}
+
 export default {
+  validateWeekCount,
   gender,
   status,
   auditStatus,
+  goodStatus,
   sortChange
 }

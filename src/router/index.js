@@ -11,6 +11,8 @@ Vue.use(Router)
 import Layout from '@/views/layout/Layout'
 import userRouter from './modules/user'
 import projectRouter from './modules/project'
+import goodRouter from './modules/good'
+import reportRouter from './modules/report'
 /** note: Submenu only appear when children.length>=1
  *  detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  **/
@@ -210,6 +212,8 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
+  reportRouter,
+  goodRouter,
   projectRouter,
   userRouter,
   { path: '*', redirect: '/404', hidden: true }

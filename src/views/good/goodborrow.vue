@@ -3,28 +3,23 @@
 
     <div class="filter-container">
       <el-button class="filter-item" type="primary" icon="el-icon-circle-plus"
-                 @click="handleAdd()">新建项目
+                 @click="handleAdd()">申请使用物品
       </el-button>
     </div>
 
     <el-table :data="tableData" border fit highlight-current-row class="custom_sale_table">
 
-      <el-table-column prop="name" label="项目名称"/>
+      <el-table-column prop="good_name" label="物品名称"/>
 
-      <el-table-column prop="plan" label="项目进度"/>
+      <el-table-column prop="user_name" label="使用者"/>
+      <el-table-column prop="num" label="数量"/>
       <el-table-column prop="start_t" label="开始时间"/>
       <el-table-column prop="end_t" label="结束时间"/>
-      <el-table-column prop="leader_name" label="项目负责人"/>
-      <el-table-column prop="users" label="项目成员">
-        <template slot-scope="scope">
-          <p>{{ scope.row.users.map(v => {return v.cname}).join(', ') }}</p>
-        </template>
-      </el-table-column>
       <el-table-column :formatter="formatterStatus" prop="status" label="状态"/>
 
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handleDelete(scope.row.id)">删除</el-button>
+          <el-button type="text" size="small" @click="handleDelete(scope.row.id)">归还</el-button>
           <el-button type="text" size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-popover
             v-if="scope.row.status == 2"
@@ -35,63 +30,53 @@
             :content="reject_reason">
             <el-button slot="reference" type="text" size="small" @click="handleReject(scope.row.id)">驳回原因</el-button>
           </el-popover>
+<!--          <el-button v-if="scope.row.status == 2" type="text" size="small" @click="handleReject(scope.row.id)">驳回原因</el-button>-->
         </template>
       </el-table-column>
     </el-table>
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.pagesize" @pagination="getList"/>
 
-    <el-dialog :visible.sync="projectDialogVisible" @close="closeDialog">
-      <el-form ref="projectFormAdd" :model="projectForm" :rules="rules" label-position="left">
-        <el-form-item label="项目名称：" label-width="100px" prop="name">
-          <el-input v-model="projectForm.name" auto-complete="off"/>
+    <el-dialog :visible.sync="goodDialogVisible">
+      <el-form ref="goodFormAdd" :model="goodForm" :rules="rules" label-position="left">
+        <el-form-item label="物品名称：" label-width="100px" prop="good_id">
+          <el-select v-model="goodForm.good_id" placeholder="请选择">
+            <el-option
+              v-for="item in goods"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="项目简介：" label-width="100px" prop="introduction">
-          <el-input v-model="projectForm.introduction" type="textarea" auto-complete="off"/>
+        <el-form-item label="使用者：" label-width="100px" prop="user_id">
+          <el-select v-model="goodForm.user_id" placeholder="请选择">
+            <el-option
+              v-for="item in users"
+              :label="item.cname"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="人员已满：" label-width="100px">
-          <el-radio v-model="projectForm.is_full" :label="true">是</el-radio>
-          <el-radio v-model="projectForm.is_full" :label="false">否</el-radio>
-        </el-form-item>
-        <el-form-item label="已完成：" label-width="100px">
-          <el-radio v-model="projectForm.is_finish" :label="true">是</el-radio>
-          <el-radio v-model="projectForm.is_finish" :label="false">否</el-radio>
-        </el-form-item>
-        <el-form-item label="项目进度：" label-width="100px" prop="plan">
-          <el-input v-model="projectForm.plan" type="" auto-complete="off"/>
+        <el-form-item label="数量：" label-width="100px" prop="num">
+          <el-input v-model="goodForm.num" auto-complete="off"/>
         </el-form-item>
         <el-form-item label="开始时间：" label-width="100px" prop="start_t">
-          <el-date-picker v-model="projectForm.start_t" type="date" placeholder="选择日期" style="width: 100%;"/>
+          <el-date-picker v-model="goodForm.start_t" type="date" placeholder="选择日期" style="width: 100%;"/>
         </el-form-item>
         <el-form-item label="结束时间：" label-width="100px" prop="end_t">
-          <el-date-picker v-model="projectForm.end_t" type="date" placeholder="选择日期" style="width: 100%;"/>
-        </el-form-item>
-        <el-form-item label="是否激活：" label-width="100px">
-          <el-radio v-model="projectForm.is_active" :label="true">激活</el-radio>
-          <el-radio v-model="projectForm.is_active" :label="false">取消</el-radio>
-        </el-form-item>
-        <el-form-item label="负责人：" label-width="100px" prop="leader_id">
-          <el-select v-model="projectForm.leader_id" placeholder="请选择">
-            <el-option
-              v-for="item in users"
-              :label="item.cname"
-              :value="item.id">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="项目成员：" label-width="100px" prop="users">
-          <el-select v-model="projectForm.users" multiple placeholder="请选择">
-            <el-option
-              v-for="item in users"
-              :label="item.cname"
-              :value="item.id">
-            </el-option>
-          </el-select>
+          <el-date-picker v-model="goodForm.end_t" type="date" placeholder="选择日期" style="width: 100%;"/>
         </el-form-item>
       </el-form>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="projectDialogVisible = false, getList()">取 消</el-button>
-        <el-button type="primary" @click="submitForm('projectFormAdd')">确定</el-button>
+        <el-button @click="goodDialogVisible = false, getList()">取 消</el-button>
+        <el-button type="primary" @click="submitForm('goodFormAdd')">确定</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog :visible.sync="rejectDialogVisible" width="30%" center>
+      <span>{{ reject_reason }}</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="rejectDialogVisible = false">确定</el-button>
       </span>
     </el-dialog>
 
@@ -99,49 +84,35 @@
 </template>
 
 <script>
-import { getProjectList, createProject, getProjectDetail, updateProject, deleteProject } from '@/api/project'
+import { getGoodList, getGoodBorrowList, createGoodBorrow, getGoodBorrowDetail, updateGoodBorrow, deleteGoodBorrow } from '@/api/good'
 import formatter from '@/utils/formatter'
 import Pagination from '@/components/Pagination'
 import { Users } from '@/api/user'
 
 export default {
-  name: 'Project',
+  name: 'GoodBorrow',
   components: { Pagination },
   data() {
     return {
       reject_reason: '',
+      rejectDialogVisible: false,
       isCreateForm: false,
       users: [],
-      projectForm: {
-        name: '',
-        introduction: '',
-        is_full: false,
-        is_finish: false,
-        plan: 0,
+      goods: [],
+      goodForm: {
+        good_name: '',
+        good_id: '',
+        user_id: '',
+        num: 0,
         start_t: '',
-        end_t: '',
-        is_active: true,
-        leader_id: '',
-        leader: '',
-        users: []
+        end_t: ''
       },
       rules: {
         name: [
-          { required: true, message: '请输入项目名称', trigger: 'blur' },
-          { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' },
-          // { validator: this.validateName, trigger: 'blur' },
-        ],
-        is_full: [
-          {required: true, message: '请选择人员状态', trigger: 'blur'}
-        ],
-        is_finish: [
-          {required: true, message: '请选择完成状态', trigger: 'blur'}
-        ],
-        is_active: [
-          {required: true, message: '请选择项目是否激活', trigger: 'blur'}
+          { required: true, message: '请输入物品名称', trigger: 'blur' }
         ]
       },
-      projectDialogVisible: false,
+      goodDialogVisible: false,
       tableData: [],
       total: 0,
       listQuery: {
@@ -156,28 +127,9 @@ export default {
     this.getList()
   },
   methods: {
-    // validateName(rule, value, callback) {
-    //   if (this.isCreateForm) {
-    //     if (!value) {
-    //       return callback(new Error('项目名称不能为空'))
-    //     } else {
-    //       this.stocksName.forEach(item => {
-    //         if (item === value) {
-    //           return callback(new Error('该项目已存在，请输入其他名称'))
-    //         }
-    //       })
-    //       callback()
-    //     }
-    //   } else {
-    //     callback()
-    //   }
-    // },
-    closeDialog() {
-      this.getList()
-    },
     handleReject(id) {
       // this.rejectDialogVisible = true
-      getProjectDetail(id).then(response => {
+      getGoodBorrowDetail(id).then(response => {
         if (response) {
           this.reject_reason = response.data.reject_reason
         }
@@ -186,22 +138,20 @@ export default {
       })
     },
     handleAdd() {
-      this.projectDialogVisible = true
+      this.goodDialogVisible = true
       this.isCreateForm = true
-      this.projectForm = {
-        name: '',
-        introduction: '',
-        is_full: false,
-        is_finish: false,
-        plan: 0,
+      this.goodForm = {
+        good_name: '',
+        good_id: '',
+        good: '',
+        user_id: '',
+        user: '',
+        num: 0,
         start_t: '',
-        end_t: '',
-        is_active: false,
-        leader_id: '',
-        leader: '',
-        users: []
-      }
+        end_t: ''
+      },
       this.users = []
+      this.goods = []
       Users.list().then(response => {
         console.log('users', response)
         if (response) {
@@ -210,18 +160,22 @@ export default {
       }).catch(e => {
         console.log(e)
       })
+      getGoodList().then(response => {
+        console.log('response', response)
+        if (response) {
+          this.goods = response.data.results
+        }
+      }).catch(e => {
+        console.log(e)
+      })
     },
     handleEdit(index, row) {
       console.log('row', row)
-      this.projectDialogVisible = true
+      this.goodDialogVisible = true
       this.isCreateForm = false
-      this.projectForm = row
-      // this.projectForm.leader = '' // todo: 需要修改此字段
-      // Users.get(this.projectForm.leader_id).then(response => {
-      //     this.projectForm.leader = response
-      // })
-      this.projectForm.users = this.projectForm.users.map(v => { return v.id })
+      this.goodForm = row
       this.users = []
+      this.goods = []
       Users.list().then(response => {
         if (response) {
           this.users = response.results
@@ -229,19 +183,27 @@ export default {
       }).catch(e => {
         console.log(e)
       })
+      getGoodList().then(response => {
+        console.log('response', response)
+        if (response) {
+          this.goods = response.data.results
+        }
+      }).catch(e => {
+        console.log(e)
+      })
     },
     handleDelete(id) {
-      this.$confirm('是否删除此项目', '提示', {
+      this.$confirm('是否归还此物品', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         center: true
       }).then(() => {
-        deleteProject(id).then(response => {
+        deleteGoodBorrow(id).then(response => {
           console.log('delete', response)
           if (response.status === 204) {
             this.$notify.success({
               title: '成功',
-              message: '删除项目成功'
+              message: '归还物品成功'
             })
             this.getList()
           } else {
@@ -260,42 +222,43 @@ export default {
     },
     submitForm(formName) {
 
-      this.projectForm.leader = this.projectForm.leader_id
+      this.goodForm.good = this.goodForm.good_id
+      this.goodForm.user = this.goodForm.user_id
 
       var isExcuteFlag = true
-      if (this.projectForm.start_t == 'NaN-NaN-NaN' || this.projectForm.end_t == 'NaN-NaN-NaN'
-        || this.projectForm.start_t == '' || this.projectForm.end_t == '') {
+      if (this.goodForm.start_t == 'NaN-NaN-NaN' || this.goodForm.end_t == 'NaN-NaN-NaN'
+        || this.goodForm.start_t == '' || this.goodForm.end_t == '') {
         this.$alert('请选择开始时间、结束时间！', '提示', {
           confirmButtonText: '确定'
         })
-        this.projectForm.start_t = ''
-        this.projectForm.end_t = ''
+        this.goodForm.start_t = ''
+        this.goodForm.end_t = ''
 
         isExcuteFlag = false
       } else {
-        var year = new Date(this.projectForm.start_t).getFullYear()// 获取完整的年份(4位,1970-????)
-        var month = new Date(this.projectForm.start_t).getMonth() + 1// 获取当前月份(0-11,0代表1月)
-        var day = new Date(this.projectForm.start_t).getDate()// 获取当前日(1-31)
+        var year = new Date(this.goodForm.start_t).getFullYear()// 获取完整的年份(4位,1970-????)
+        var month = new Date(this.goodForm.start_t).getMonth() + 1// 获取当前月份(0-11,0代表1月)
+        var day = new Date(this.goodForm.start_t).getDate()// 获取当前日(1-31)
         if (month < 10) {
           month = '0' + month
         }
         if (day < 10) {
           day = '0' + day
         }
-        this.projectForm.start_t = year + '-' + month + '-' + day
+        this.goodForm.start_t = year + '-' + month + '-' + day
 
-        var year = new Date(this.projectForm.end_t).getFullYear()// 获取完整的年份(4位,1970-????)
-        var month = new Date(this.projectForm.end_t).getMonth() + 1// 获取当前月份(0-11,0代表1月)
-        var day = new Date(this.projectForm.end_t).getDate()// 获取当前日(1-31)
+        var year = new Date(this.goodForm.end_t).getFullYear()// 获取完整的年份(4位,1970-????)
+        var month = new Date(this.goodForm.end_t).getMonth() + 1// 获取当前月份(0-11,0代表1月)
+        var day = new Date(this.goodForm.end_t).getDate()// 获取当前日(1-31)
         if (month < 10) {
           month = '0' + month
         }
         if (day < 10) {
           day = '0' + day
         }
-        this.projectForm.end_t = year + '-' + month + '-' + day
+        this.goodForm.end_t = year + '-' + month + '-' + day
       }
-      console.log('formAdd', this.projectForm)
+      console.log('formAdd', this.goodForm)
       if (isExcuteFlag) {
         this.$refs[formName].validate((valid) => {
           if (!valid) {
@@ -307,10 +270,10 @@ export default {
           }
           var dataform = this.$refs[formName].model
           if (dataform == null || dataform.id == null || dataform.id === '') {
-            createProject(dataform).then(response => {
+            createGoodBorrow(dataform).then(response => {
               console.log('form：', response)
               if (response.status == 201) {
-                this.projectDialogVisible = false
+                this.goodDialogVisible = false
                 this.$notify.success({
                   title: '成功',
                   message: '创建成功'
@@ -331,13 +294,13 @@ export default {
             })
           } else {
             console.log('update', dataform)
-            updateProject(dataform.id, dataform).then(response => {
+            updateGoodBorrow(dataform.id, dataform).then(response => {
               console.log('formUpdate：', response)
               if (response.status === 200) {
-                this.projectDialogVisible = false
+                this.goodDialogVisible = false
                 this.$notify.success({
                   title: '成功',
-                  message: '修改项目成功'
+                  message: '修改物品成功'
                 })
                 this.getList()
               } else {
@@ -357,7 +320,7 @@ export default {
       }
     },
     getList() {
-      getProjectList(this.listQuery).then(response => {
+      getGoodBorrowList(this.listQuery).then(response => {
         console.log('listResponse', response)
         var list = response.data.results
         this.total = response.data.count
@@ -436,14 +399,14 @@ export default {
 </style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .projectInfoHeader {
+  .goodInfoHeader {
     color: gray;
     font-size: large;
     margin-left: 2%;
     margin-bottom: 1.5%;
     margin-top: 3%;
   }
-  .projectInfoBody {
+  .goodInfoBody {
     border:2px solid gainsboro;
     border-radius: 12px;
     width: 97%;

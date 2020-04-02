@@ -22,6 +22,14 @@ const projectRouter = {
       component: () => import('@/views/project/project'),
       name: 'Project',
       meta: { title: '项目列表' }
+    },
+    {
+      path: 'projectaudit',
+      component: () => import('@/views/project/project_audit'),
+      name: 'ProjectAudit',
+      meta: { title: '项目审核'
+        // roles: 'teacher'
+      }
     }
   ]
 }
