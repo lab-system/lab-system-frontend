@@ -30,7 +30,7 @@
             <div id="share1" class="box-header with-border" style="list-style: none;display: block">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">设施设备</h3>
               <ul id="articleTitle1">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 54">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '设施设备'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick1(item.id)">
                     {{ item.title }}
                   </a>
@@ -44,7 +44,7 @@
             <div id="share2" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">开放共享</h3>
              <ul id="articleTitle2">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 55">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '开放共享'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick2(item.id)">
                     {{ item.title }}
                   </a>
@@ -58,7 +58,7 @@
             <div id="share3" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">科普教育</h3>
              <ul id="articleTitle3">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 56">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '科普教育'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick3(item.id)">
                     {{ item.title }}
                   </a>

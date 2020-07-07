@@ -36,7 +36,7 @@
             <div id="culture1" class="box-header with-border" style="list-style: none;display: block" >
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">科研掠影</h3>
               <ul id="articleTitle1">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 50">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '科研掠影'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick1(item.id)">
                     {{ item.title }}
                   </a>
@@ -50,7 +50,7 @@
             <div id="culture2" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">研究趣图</h3>
              <ul id="articleTitle2">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 51">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '研究趣图'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick2(item.id)">
                     {{ item.title }}
                   </a>
@@ -64,7 +64,7 @@
             <div id="culture3" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">文艺作品</h3>
               <ul id="articleTitle3">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 52">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '文艺作品'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick3(item.id)">
                     {{ item.title }}
                   </a>
@@ -78,7 +78,7 @@
             <div id="culture4" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">文体活动</h3>
              <ul id="articleTitle4">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 53">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '文体活动'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick4(item.id)">
                     {{ item.title }}
                   </a>

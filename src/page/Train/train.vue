@@ -29,7 +29,7 @@
             <div id="train1" class="box-header with-border" style="list-style: none;display: block">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">开设课程</h3>
               <ul id="articleTitle1" style="width: 100%">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 43">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '开设课程'">
 <!--                   <span class="createTime">{{ item.create_time.substring(0,10) }}</span>-->
                   <a class="articleTitle" style="text-decoration:underline;" src="item.title" @click="articleClick1(item.id)">
                     {{ item.title }}
@@ -44,7 +44,7 @@
              <div id="train2" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">硕士研究生培养</h3>
               <ul id="articleTitle2">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 44">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '硕士研究生培养'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick2(item.id)">
                     {{ item.title }}
                   </a>
@@ -58,7 +58,7 @@
              <div id="train3" class="box-header with-border" style="list-style: none;display: none  ">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">博士研究生培养</h3>
               <ul id="articleTitle3">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 45">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '博士研究生培养'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick3(item.id)">
                     {{ item.title }}
                   </a>

@@ -36,7 +36,7 @@
             <div id="project1" class="box-header with-border" style="list-style: none;display: block">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">重大课题</h3>
              <ul id="articleTitle1">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 46">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '重大课题'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick1(item.id)">
                     {{ item.title }}
                   </a>
@@ -50,7 +50,7 @@
             <div id="project2" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">国家级课题</h3>
               <ul id="articleTitle2">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 47">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '国家级课题'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick2(item.id)">
                     {{ item.title }}
                   </a>
@@ -62,9 +62,9 @@
             </div>
             </div>
              <div id="project3" class="box-header with-border" style="list-style: none;display: none">
-              <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">省部课题</h3>
+              <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">省部级课题</h3>
                <ul id="articleTitle3">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 48">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '省部级课题'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick3(item.id)">
                     {{ item.title }}
                   </a>
@@ -78,7 +78,7 @@
              <div id="project4" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">横向课题</h3>
               <ul id="articleTitle4">
-                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 49">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category_name === '横向课题'">
                   <a style="text-decoration:underline;" src="item.title" @click="articleClick4(item.id)">
                     {{ item.title }}
                   </a>

@@ -50,7 +50,7 @@
               <div class="col-md-6">
                           <div class="form-group">
                             <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list" :key="item.content" v-if="item.category === 41">{{ item.content }}
+                                      v-for="item in list" :key="item.content" v-if="item.category_name === '实验室简介'">{{ item.content }}
                             </textarea>
                           </div>
                         <div class="form-group"><br></div>
@@ -72,7 +72,7 @@
               <div class="col-md-6">
                           <div class="form-group">
                             <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list" :key="item.content" v-if="item.category === 42">{{ item.content }}
+                                      v-for="item in list" :key="item.content" v-if="item.category_name === '研究方向'">{{ item.content }}
                             </textarea>
                           </div>
                         <div class="form-group"><br></div>
@@ -94,7 +94,7 @@
               <div class="col-md-6">
                           <div class="form-group">
                             <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list1" :key="item.introduction" v-if="item.category === 16">{{ item.introduction }}
+                                      v-for="item in list1" :key="item.introduction" v-if="item.category_name === '现任领导'">{{ item.introduction }}
                             </textarea>
                           </div>
                         <div class="form-group"><br></div>
@@ -116,7 +116,7 @@
               <div class="col-md-6">
                           <div class="form-group">
                              <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list1" :key="item.introduction" v-if="item.category === 17">{{ item.introduction }}
+                                      v-for="item in list1" :key="item.introduction" v-if="item.category_name === '历任领导'">{{ item.introduction }}
                             </textarea>
                           </div>
                         <div class="form-group"><br></div>
@@ -138,7 +138,7 @@
               <div class="col-md-6">
                           <div class="form-group">
                             <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list1" :key="item.introduction" v-if="item.category === 18">{{ item.introduction }}
+                                      v-for="item in list1" :key="item.introduction" v-if="item.category_name === '学术委员会'">{{ item.introduction }}
                             </textarea>
                           </div>
                         <div class="form-group"><br></div>

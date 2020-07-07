@@ -24,26 +24,26 @@
         </el-menu>
 
       </el-aside>
-   <div class="row" >
+   <div class="row" style="height: 1000px">
         <div class="col-md-6" >
           <div class="box box-default" >
             <div id="team1" class="box-header with-border" style="list-style: none;display: block;width: 1000px">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">学术骨干</h3>
-               <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;" v-for="(item,index) in list" v-bind:key="index" v-if="item.category === 13">
+               <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;" v-for="(item,index) in list" v-bind:key="index" v-if="item.category_name === '学术骨干'">
                   <img :src="list[index].avatar" class="form-control" style="width: 15%"  name="noticeContent"/>
                   <textarea class="form-control" style="width: 80%"  rows="7" cols="12"  name="noticeContent">{{ item.introduction }}</textarea>
                 </div>
             </div>
              <div id="team2" class="box-header with-border" style="list-style: none;display: none;width: 1000px">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">固定研究人员</h3>
-                <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;" v-for="(item,index) in list" v-bind:key="index" v-if="item.category === 14">
+                <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;" v-for="(item,index) in list" v-bind:key="index" v-if="item.category_name === '固定研究人员'">
                   <img :src="list[index].avatar" class="form-control" style="width: 15%"  name="noticeContent"/>
                   <textarea class="form-control" style="width: 80%"  rows="7" cols="12"  name="noticeContent">{{ item.introduction }}</textarea>
                 </div>
             </div>
              <div id="team3" class="box-header with-border" style="list-style: none;display: none;width: 1000px">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">流动研究人员</h3>
-                <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;" v-for="(item,index) in list" v-bind:key="index" v-if="item.category === 15">
+                <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;" v-for="(item,index) in list" v-bind:key="index" v-if="item.category_name === '流动研究人员'">
                   <img :src="list[index].avatar" class="form-control" style="width: 15%"  name="noticeContent"/>
                   <textarea class="form-control" style="width: 80%"  rows="7" cols="12"  name="noticeContent">{{ item.introduction }}</textarea>
                 </div>
