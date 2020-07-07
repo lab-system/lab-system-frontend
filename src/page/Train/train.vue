@@ -22,103 +22,57 @@
           </li>
           </el-menu-item>
         </el-menu>
-
       </el-aside>
    <div class="row" style="height: 1000px;">
         <div class="col-md-6" style="height: 1000px">
           <div class="box box-default" style="height: 1000px">
             <div id="train1" class="box-header with-border" style="list-style: none;display: block">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">开设课程</h3>
-              <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a @click="kechen1" style="text-decoration:underline;">2022年硕士研究生录取名单</a>
+              <ul id="articleTitle1" style="width: 100%">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 43">
+<!--                   <span class="createTime">{{ item.create_time.substring(0,10) }}</span>-->
+                  <a class="articleTitle" style="text-decoration:underline;" src="item.title" @click="articleClick1(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-                <li  style="margin-top: 15px">
-                  <a @click="kechen2" style="text-decoration: underline">2022年国家公派研究生项目校内预推荐名单</a>
-                </li>
-                 <li  style="margin-top: 15px">
-                  <a @click="kechen3" style="text-decoration: underline">2022年研究生奖学金申请</a>
-                </li>
-              </ul>
+                 </ul>
+                <div  id= "articleContent1"  v-for="item in list" v-if="item.id === id">
+                  <div class="title">{{ item.title }}</div>
+              <div class="articleContent">{{ item.content }}</div>
             </div>
-            <div id="kechen1" class="box-header with-border" style="list-style: none;display: none">
-              <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">2022年硕士研究生录取名单</h3>
-            </div>
-             <div id="kechen2" class="box-header with-border" style="list-style: none;display: none">
-              <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">2022年国家公派研究生项目校内预推荐名单</h3>
-            </div>
-             <div id="kechen3" class="box-header with-border" style="list-style: none;display: none">
-              <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">2022年研究生奖学金申请</h3>
             </div>
              <div id="train2" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">硕士研究生培养</h3>
-                <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">2022年硕士研究生录取名单</a>
+              <ul id="articleTitle2">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 44">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick2(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-                <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">2022年国家公派研究生项目校内预推荐名单</a>
-                </li>
-                 <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">2022年研究生奖学金申请</a>
-                </li>
-              </ul>
+                 </ul>
+                <div id= "articleContent2"  v-for="item in list" v-if="item.id === id">
+                  <div class="title">{{ item.title }}</div>
+              <div  class="articleContent" >{{ item.content }}</div>
+            </div>
             </div>
              <div id="train3" class="box-header with-border" style="list-style: none;display: none  ">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">博士研究生培养</h3>
-                <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">2022年博士研究生录取名单</a>
+              <ul id="articleTitle3">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 45">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick3(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-                <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">2022年国家公派研究生项目校内预推荐名单</a>
-                </li>
-                 <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">2022年博士研究生奖学金申请</a>
-                </li>
-              </ul>
+                 </ul>
+                <div  id= "articleContent3"  v-for="item in list" v-if="item.id === id">
+                  <div class="title">{{ item.title }}</div>
+              <div  class="articleContent">{{ item.content }}</div>
             </div>
-            <!-- /.box-header -->
+            </div>
             <div class="box-body">
-
             </div>
-            <!-- /.box-body -->
           </div>
-          <!-- /.box -->
         </div>
-
-    <div v-for="(item,i) in home" :key="i">
-
-      <div class="activity-panel" v-if="item.type === 1">
-        <ul class="box">
-          <li class="content" v-for="(iitem,j) in item.panelContents" :key="j" @click="linkTo(iitem)">
-
-            <a class="cover-link"></a>
-          </li>
-        </ul>
-      </div>
-
-      <section class="w mt30 clearfix" v-if="item.type === 2">
-        <y-shelf :title="item.name">
-          <div slot="content" class="hot">
-            <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j"></mall-goods>
-          </div>
-        </y-shelf>
-      </section>
-
-      <section class="w mt30 clearfix" v-if="item.type === 3">
-        <y-shelf :title="item.name">
-          <div slot="content" class="floors" >
-            <div class="imgbanner" v-for="(iitem,j) in item.panelContents" :key="j" v-if="iitem.type === 2 || iitem.type === 3" @click="linkTo(iitem)">
-              <img v-lazy="iitem.picUrl">
-              <a class="cover-link"></a>
-            </div>
-            <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j+'key'" v-if="iitem.type != 2 && iitem.type != 3"></mall-goods>
-          </div>
-        </y-shelf>
-      </section>
-
-      </div>
   </div>
     </el-container>
   </div>
@@ -129,9 +83,12 @@
   import mallGoods from '@/components/mallGoods'
   import YButton from '@/components/YButton'
   import YShelf from '@/components/shelf'
+  import { getArticleList } from '@/api/article'
   export default {
     data () {
       return {
+        id: '',
+        list: [],
         goods: [],
         noResult: false,
         error: false,
@@ -155,47 +112,58 @@
         this._getAllGoods()
         this.loading = true
       },
+      getList(){
+          var params = {
+              category_name: ['开设课程','硕士研究生培养','博士研究生培养'],
+              tags_name: '人才培养'
+          }
+          getArticleList(params).then(response => {
+              console.log('listResponse======>',response)
+              this.list = response.data
+              console.log('list',this.list)
+          }).catch((e) => {
+              console.log(e)
+              this.list = []
+          })
+      },
+       articleClick1(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle1').style.display = 'none'
+         document.getElementById('articleContent1').style.display = 'block'
+      },
+         articleClick2(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle2').style.display = 'none'
+         document.getElementById('articleContent2').style.display = 'block'
+      },
+         articleClick3(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle3').style.display = 'none'
+         document.getElementById('articleContent3').style.display = 'block'
+      },
       train1() {
         document.getElementById('train1').style.display = 'block'
         document.getElementById('train2').style.display = 'none'
         document.getElementById('train3').style.display = 'none'
-        document.getElementById('kechen1').style.display = 'none'
-        document.getElementById('kechen2').style.display = 'none'
-        document.getElementById('kechen3').style.display = 'none'
-      },
-      kechen1() {
-        document.getElementById('train1').style.display = 'none'
-        document.getElementById('train2').style.display = 'none'
-        document.getElementById('train3').style.display = 'none'
-        document.getElementById('kechen1').style.display = 'block'
-        document.getElementById('kechen2').style.display = 'none'
-        document.getElementById('kechen3').style.display = 'none'
-      },
-      kechen2() {
-        document.getElementById('train1').style.display = 'none'
-        document.getElementById('train2').style.display = 'none'
-        document.getElementById('train3').style.display = 'none'
-        document.getElementById('kechen2').style.display = 'block'
-        document.getElementById('kechen1').style.display = 'none'
-        document.getElementById('kechen3').style.display = 'none'
-      },
-      kechen3(){
-        document.getElementById('train1').style.display = 'none'
-        document.getElementById('train2').style.display = 'none'
-        document.getElementById('train3').style.display = 'none'
-        document.getElementById('kechen3').style.display = 'block'
-        document.getElementById('kechen2').style.display = 'none'
-        document.getElementById('kechen1').style.display = 'none'
+            document.getElementById('articleContent1').style.display = 'none'
+        document.getElementById('articleTitle1').style.display = 'block'
       },
       train2() {
         document.getElementById('train2').style.display = 'block'
         document.getElementById('train1').style.display = 'none'
         document.getElementById('train3').style.display = 'none'
+            document.getElementById('articleContent2').style.display = 'none'
+        document.getElementById('articleTitle2').style.display = 'block'
       },
       train3() {
         document.getElementById('train3').style.display = 'block'
         document.getElementById('train2').style.display = 'none'
         document.getElementById('train1').style.display = 'none'
+            document.getElementById('articleContent3').style.display = 'none'
+        document.getElementById('articleTitle3').style.display = 'block'
       },
       handleCurrentChange (val) {
         this.currentPage = val
@@ -261,6 +229,7 @@
       }
     },
     created () {
+        this.getList()
     },
     mounted () {
       this.windowHeight = window.innerHeight
@@ -398,5 +367,30 @@ body > .el-container {
  .left-nav{
    height: 25px;
  }
-
+.articleContent{
+  margin-top: 2%;
+    text-indent: 2em;
+    font-size: 20px;
+    letter-spacing: 3px;
+    line-height: 25px;
+    text-align: justify;
+}
+.title{
+   text-align: center;
+    font-size: 26px;
+}
+.createTime{
+  float:right;
+}
+.articleTitle{
+  overflow:hidden;
+  text-overflow:ellipsis ;
+  white-space : nowrap;
+  /*max-width: 70%;*/
+  display: block;
+  width: 100%;
+}
+.box-header with-border{
+  width: 80%;
+}
 </style>

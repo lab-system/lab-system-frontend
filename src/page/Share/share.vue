@@ -29,27 +29,45 @@
           <div class="box box-default" style="height: 500px">
             <div id="share1" class="box-header with-border" style="list-style: none;display: block">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">设施设备</h3>
-              <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">2020年3月机房使用情况汇总</a>
+              <ul id="articleTitle1">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 54">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick1(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-              </ul>
+                 </ul>
+                <div class="articleDiv" id= "articleContent1"  v-for="item in list" v-if="item.id === id">
+                  <div class="title">{{ item.title }}</div>
+              <div class="articleContent">{{ item.content }}</div>
+            </div>
             </div>
             <div id="share2" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">开放共享</h3>
-              <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">实验室服务器开放共享管理办法</a>
+             <ul id="articleTitle2">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 55">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick2(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-              </ul>
+                 </ul>
+                <div class="articleDiv" id= "articleContent2"  v-for="item in list" v-if="item.id === id">
+                   <div class="title">{{ item.title }}</div>
+              <div class="articleContent">{{ item.content }}</div>
+            </div>
             </div>
             <div id="share3" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">科普教育</h3>
-              <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">网络安全知识科普讲座</a>
+             <ul id="articleTitle3">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 56">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick3(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-              </ul>
+                 </ul>
+                <div class="articleDiv" id= "articleContent3"  v-for="item in list" v-if="item.id === id">
+                   <div class="title">{{ item.title }}</div>
+              <div class="articleContent" >{{ item.content }}</div>
+            </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -102,9 +120,12 @@
   import mallGoods from '@/components/mallGoods'
   import YButton from '@/components/YButton'
   import YShelf from '@/components/shelf'
+  import { getArticleList } from '@/api/article'
   export default {
     data () {
       return {
+        list:[],
+        id:'',
         goods: [],
         noResult: false,
         error: false,
@@ -128,20 +149,58 @@
         this._getAllGoods()
         this.loading = true
       },
+        getList(){
+          var params = {
+              category_name: ['设施设备','开放共享','科普教育'],
+              tags_name: '资源共享'
+          }
+          getArticleList(params).then(response => {
+              console.log('listResponse======>',response)
+              this.list = response.data
+              console.log('list',this.list)
+          }).catch((e) => {
+              console.log(e)
+              this.list = []
+          })
+      },
+        articleClick1(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle1').style.display = 'none'
+         document.getElementById('articleContent1').style.display = 'block'
+      },
+        articleClick2(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle2').style.display = 'none'
+         document.getElementById('articleContent2').style.display = 'block'
+      },
+        articleClick3(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle3').style.display = 'none'
+         document.getElementById('articleContent3').style.display = 'block'
+      },
       share1() {
         document.getElementById('share1').style.display = 'block'
         document.getElementById('share2').style.display = 'none'
         document.getElementById('share3').style.display = 'none'
+           document.getElementById('articleContent1').style.display = 'none'
+        document.getElementById('articleTitle1').style.display = 'block'
       },
       share2() {
         document.getElementById('share2').style.display = 'block'
         document.getElementById('share1').style.display = 'none'
         document.getElementById('share3').style.display = 'none'
+           document.getElementById('articleContent2').style.display = 'none'
+        document.getElementById('articleTitle2').style.display = 'block'
       },
       share3() {
         document.getElementById('share3').style.display = 'block'
         document.getElementById('share2').style.display = 'none'
         document.getElementById('share1').style.display = 'none'
+           document.getElementById('articleContent3').style.display = 'none'
+        document.getElementById('articleTitle3').style.display = 'block'
       },
       handleCurrentChange (val) {
         this.currentPage = val
@@ -207,6 +266,7 @@
       }
     },
     created () {
+        this.getList();
     },
     mounted () {
       this.windowHeight = window.innerHeight
@@ -344,5 +404,19 @@ body > .el-container {
  .left-nav{
    height: 25px;
  }
-
+.articleContent{
+  margin-top: 2%;
+    text-indent: 2em;
+    font-size: 20px;
+    letter-spacing: 3px;
+    line-height: 25px;
+    text-align: justify;
+}
+.title{
+   text-align: center;
+    font-size: 26px;
+}
+.articleDiv{
+  text-align: center;
+}
 </style>

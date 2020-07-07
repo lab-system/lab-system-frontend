@@ -19,7 +19,7 @@ function hasPermission(roles, permissionRoles) {
   return roles.some(role => permissionRoles.indexOf(role) >= 0)
 }
 
-const whiteList = ['/team', '/train', '/project', '/culture', '/share', '/login', '/auth-redirect', '/register', '/resetpwd', '/404', '/401', '/502', '/', '/home', '/goods', '/goodsDetails', '/thanks', '/search', '/refreshsearch', '/refreshgoods']// no redirect whitelist
+const whiteList = ['/team', '/train', '/project', '/culture', '/share', '/login', '/auth-redirect', '/register', '/resetpwd', '/404', '/401', '/502', '/', '/home', '/goods', '/goodsDetails', '/thanks', '/search', '/refreshsearch', '/refreshgoods','/articleContent']// no redirect whitelist
 
 router.beforeEach((to, from, next) => {
   console.log('to', to)

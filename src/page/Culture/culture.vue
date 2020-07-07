@@ -33,221 +33,159 @@
    <div class="row" style="height: 500px;">
         <div class="col-md-6" style="height: 500px">
           <div class="box box-default" style="height: 500px">
-            <div id="culture1" class="box-header with-border" style="list-style: none;display: block">
+            <div id="culture1" class="box-header with-border" style="list-style: none;display: block" >
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">科研掠影</h3>
-               <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">“智慧港口”项目研讨会</a>
+              <ul id="articleTitle1">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 50">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick1(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-                <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">2020年度总结会议</a>
-                </li>
-              </ul>
+                 </ul>
+                <div id= "articleContent1"  v-for="item in list" v-if="item.id === id">
+                    <div class="title">{{ item.title }}</div>
+              <div class="articleContent" >{{ item.content }}</div>
+            </div>
             </div>
             <div id="culture2" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">研究趣图</h3>
-               <ul style="margin-top: 10px">
-               <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">2020年编程能力大赛</a>
+             <ul id="articleTitle2">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 51">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick2(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-               </ul>
+                 </ul>
+                <div id= "articleContent2"  v-for="item in list" v-if="item.id === id">
+                    <div class="title">{{ item.title }}</div>
+              <div class="articleContent" >{{ item.content }}</div>
+            </div>
             </div>
             <div id="culture3" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">文艺作品</h3>
-               <ul style="margin-top: 10px">
-               <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">2020年书法大赛作品展示</a>
+              <ul id="articleTitle3">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 52">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick3(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-               </ul>
+                 </ul>
+                <div id= "articleContent3"  v-for="item in list" v-if="item.id === id">
+                    <div class="title">{{ item.title }}</div>
+              <div class="articleContent" >{{ item.content }}</div>
+            </div>
             </div>
             <div id="culture4" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">文体活动</h3>
-               <ul style="margin-top: 10px">
-               <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">2020年师生羽毛球大赛活动进行中</a>
+             <ul id="articleTitle4">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 53">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick4(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-               </ul>
+                 </ul>
+                <div class="articleContent"  id= "articleContent4"  v-for="item in list" v-if="item.id === id">
+              <div>{{ item.content }}</div>
+            </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
 
-            </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
-
-    <div v-for="(item,i) in home" :key="i">
-
-      <div class="activity-panel" v-if="item.type === 1">
-        <ul class="box">
-          <li class="content" v-for="(iitem,j) in item.panelContents" :key="j" @click="linkTo(iitem)">
-
-            <a class="cover-link"></a>
-          </li>
-        </ul>
-      </div>
-
-      <section class="w mt30 clearfix" v-if="item.type === 2">
-        <y-shelf :title="item.name">
-          <div slot="content" class="hot">
-            <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j"></mall-goods>
-          </div>
-        </y-shelf>
-      </section>
-
-      <section class="w mt30 clearfix" v-if="item.type === 3">
-        <y-shelf :title="item.name">
-          <div slot="content" class="floors" >
-            <div class="imgbanner" v-for="(iitem,j) in item.panelContents" :key="j" v-if="iitem.type === 2 || iitem.type === 3" @click="linkTo(iitem)">
-              <img v-lazy="iitem.picUrl">
-              <a class="cover-link"></a>
-            </div>
-            <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j+'key'" v-if="iitem.type != 2 && iitem.type != 3"></mall-goods>
-          </div>
-        </y-shelf>
-      </section>
-
-      </div>
   </div>
     </el-container>
   </div>
 </template>
 <script>
-  import { getAllGoods } from '@/api/goods'
-  import { recommend } from '@/api/index'
-  import mallGoods from '@/components/mallGoods'
-  import YButton from '@/components/YButton'
-  import YShelf from '@/components/shelf'
+  import { getArticleList } from '@/api/article'
+
   export default {
     data () {
       return {
-        goods: [],
-        noResult: false,
-        error: false,
-        min: '',
-        max: '',
-        loading: true,
-        timer: null,
-        sortType: 1,
-        windowHeight: null,
-        windowWidth: null,
-        recommendPanel: [],
-        sort: '',
-        currentPage: 1,
-        total: 0,
-        pageSize: 20
+        list: [],
+        content: '',
+        id: ''
       }
     },
     methods: {
-      handleSizeChange (val) {
-        this.pageSize = val
-        this._getAllGoods()
-        this.loading = true
+      articleClick1(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle1').style.display = 'none'
+         document.getElementById('articleContent1').style.display = 'block'
       },
+         articleClick2(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle2').style.display = 'none'
+         document.getElementById('articleContent2').style.display = 'block'
+      },
+         articleClick3(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle3').style.display = 'none'
+         document.getElementById('articleContent3').style.display = 'block'
+      },
+         articleClick4(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle4').style.display = 'none'
+         document.getElementById('articleContent4').style.display = 'block'
+      },
+
       culture1() {
         document.getElementById('culture1').style.display = 'block'
         document.getElementById('culture2').style.display = 'none'
         document.getElementById('culture3').style.display = 'none'
         document.getElementById('culture4').style.display = 'none'
+        document.getElementById('articleContent1').style.display = 'none'
+        document.getElementById('articleTitle1').style.display = 'block'
       },
       culture2() {
         document.getElementById('culture2').style.display = 'block'
         document.getElementById('culture1').style.display = 'none'
         document.getElementById('culture3').style.display = 'none'
         document.getElementById('culture4').style.display = 'none'
+           document.getElementById('articleContent2').style.display = 'none'
+        document.getElementById('articleTitle2').style.display = 'block'
       },
       culture3() {
         document.getElementById('culture3').style.display = 'block'
         document.getElementById('culture2').style.display = 'none'
         document.getElementById('culture1').style.display = 'none'
         document.getElementById('culture4').style.display = 'none'
+           document.getElementById('articleContent3').style.display = 'none'
+        document.getElementById('articleTitle3').style.display = 'block'
       },
       culture4() {
         document.getElementById('culture4').style.display = 'block'
         document.getElementById('culture2').style.display = 'none'
         document.getElementById('culture3').style.display = 'none'
         document.getElementById('culture1').style.display = 'none'
+           document.getElementById('articleContent4').style.display = 'none'
+        document.getElementById('articleTitle4').style.display = 'block'
       },
-      handleCurrentChange (val) {
-        this.currentPage = val
-        this._getAllGoods()
-        this.loading = true
-      },
-      _getAllGoods () {
-        let cid = this.$route.query.cid
-        if (this.min !== '') {
-          this.min = Math.floor(this.min)
-        }
-        if (this.max !== '') {
-          this.max = Math.floor(this.max)
-        }
-        let params = {
-          params: {
-            page: this.currentPage,
-            size: this.pageSize,
-            sort: this.sort,
-            priceGt: this.min,
-            priceLte: this.max,
-            cid: cid
+
+      getList(){
+          var params = {
+              category_name: ['科研掠影','研究趣闻','文艺作品','文体活动'],
+              tags_name: '实验室文化'
           }
-        }
-        getAllGoods(params).then(res => {
-          if (res.success === true) {
-            this.total = res.result.total
-            this.goods = res.result.data
-            this.noResult = false
-            if (this.total === 0) {
-              this.noResult = true
-            }
-            this.error = false
-          } else {
-            this.error = true
-          }
-          this.loading = false
-        })
+          getArticleList(params).then(response => {
+              console.log('listResponse======>',response)
+              this.list = response.data
+              console.log('list',this.list)
+          }).catch((e) => {
+              console.log(e)
+              this.list = []
+          })
       },
-      // 默认排序
-      reset () {
-        this.sortType = 1
-        this.sort = ''
-        this.currentPage = 1
-        this.loading = true
-        this._getAllGoods()
-      },
-      // 价格排序
-      sortByPrice (v) {
-        v === 1 ? this.sortType = 2 : this.sortType = 3
-        this.sort = v
-        this.currentPage = 1
-        this.loading = true
-        this._getAllGoods()
-      }
     },
-    watch: {
-      $route (to, from) {
-        if (to.fullPath.indexOf('/goods?cid=') >= 0) {
-          this.cId = to.query.cid
-          this._getAllGoods()
-        }
-      }
+    created() {
+        this.getList()
     },
-    created () {
-    },
-    mounted () {
-      this.windowHeight = window.innerHeight
-      this.windowWidth = window.innerWidth
-      this._getAllGoods()
-      recommend().then(res => {
-        let data = res.result
-        this.recommendPanel = data[0]
-      })
-    },
-    components: {
-      mallGoods,
-      YButton,
-      YShelf
-    }
   }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
@@ -370,5 +308,16 @@ body > .el-container {
  .left-nav{
    height: 25px;
  }
-
+.articleContent{
+  margin-top: 2%;
+    text-indent: 2em;
+    font-size: 20px;
+    letter-spacing: 3px;
+    line-height: 25px;
+    text-align: justify;
+}
+  .title{
+   text-align: center;
+    font-size: 26px;
+}
 </style>

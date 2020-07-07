@@ -24,52 +24,28 @@
         </el-menu>
 
       </el-aside>
-   <div class="row" style="height: 1000px;">
-        <div class="col-md-6" style="height: 1000px">
-          <div class="box box-default" style="height: 1000px">
+   <div class="row" >
+        <div class="col-md-6" >
+          <div class="box box-default" >
             <div id="team1" class="box-header with-border" style="list-style: none;display: block;width: 1000px">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">学术骨干</h3>
-               <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;">
-                  <textarea class="form-control" style="width: 15%"  rows="8" cols="12" placeholder="照片" name="noticeContent"></textarea>
-                  <textarea class="form-control" style="width: 80%"  rows="8" cols="12" placeholder="    王勇，……" name="noticeContent"></textarea>
-                </div>
-              <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;">
-                  <textarea class="form-control" style="width: 15%"  rows="8" cols="12" placeholder="照片" name="noticeContent"></textarea>
-                  <textarea class="form-control" style="width: 80%"  rows="8" cols="12" placeholder="……" name="noticeContent"></textarea>
-                </div>
-              <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;">
-                  <textarea class="form-control" style="width: 15%"  rows="8" cols="12" placeholder="照片" name="noticeContent"></textarea>
-                  <textarea class="form-control" style="width: 80%" rows="8" cols="12" placeholder="……" name="noticeContent"></textarea>
+               <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;" v-for="(item,index) in list" v-bind:key="index" v-if="item.category === 13">
+                  <img :src="list[index].avatar" class="form-control" style="width: 15%"  name="noticeContent"/>
+                  <textarea class="form-control" style="width: 80%"  rows="7" cols="12"  name="noticeContent">{{ item.introduction }}</textarea>
                 </div>
             </div>
              <div id="team2" class="box-header with-border" style="list-style: none;display: none;width: 1000px">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">固定研究人员</h3>
-                <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;">
-                  <textarea class="form-control" style="width: 15%" rows="8" cols="12" placeholder="照片" name="noticeContent"></textarea>
-                  <textarea class="form-control" style="width: 80%" rows="8" cols="12" placeholder="……" name="noticeContent"></textarea>
-                </div>
-              <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;">
-                  <textarea class="form-control" style="width: 15%"  rows="8" cols="12" placeholder="照片" name="noticeContent"></textarea>
-                  <textarea class="form-control" style="width: 80%" rows="8" cols="12" placeholder="……" name="noticeContent"></textarea>
-                </div>
-              <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;">
-                  <textarea class="form-control" style="width: 15%"  rows="8" cols="12" placeholder="照片" name="noticeContent"></textarea>
-                  <textarea class="form-control" style="width: 80%"  rows="8" cols="12" placeholder="……" name="noticeContent"></textarea>
+                <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;" v-for="(item,index) in list" v-bind:key="index" v-if="item.category === 14">
+                  <img :src="list[index].avatar" class="form-control" style="width: 15%"  name="noticeContent"/>
+                  <textarea class="form-control" style="width: 80%"  rows="7" cols="12"  name="noticeContent">{{ item.introduction }}</textarea>
                 </div>
             </div>
              <div id="team3" class="box-header with-border" style="list-style: none;display: none;width: 1000px">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">流动研究人员</h3>
-                <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;">
-                  <textarea class="form-control" style="width: 15%"  rows="8" cols="12" placeholder="照片" name="noticeContent"></textarea>
-                  <textarea class="form-control" style="width: 80%"  rows="8" cols="12" placeholder="……" name="noticeContent"></textarea>
-                </div>
-              <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;">
-                  <textarea class="form-control" style="width: 15%"  rows="8" cols="12" placeholder="照片" name="noticeContent"></textarea>
-                  <textarea class="form-control" style="width: 80%"  rows="8" cols="12" placeholder="……" name="noticeContent"></textarea>
-                </div>
-              <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;">
-                  <textarea class="form-control" style="width: 15%" rows="8" cols="12" placeholder="照片" name="noticeContent"></textarea>
-                  <textarea class="form-control" style="width: 80%" rows="8" cols="12" placeholder="……" name="noticeContent"></textarea>
+                <div class="form-group" style="margin-left: 20px;margin-top: 10px;width: 100%;" v-for="(item,index) in list" v-bind:key="index" v-if="item.category === 15">
+                  <img :src="list[index].avatar" class="form-control" style="width: 15%"  name="noticeContent"/>
+                  <textarea class="form-control" style="width: 80%"  rows="7" cols="12"  name="noticeContent">{{ item.introduction }}</textarea>
                 </div>
             </div>
             <!-- /.box-header -->
@@ -80,39 +56,6 @@
           </div>
           <!-- /.box -->
         </div>
-
-    <div v-for="(item,i) in home" :key="i">
-
-      <div class="activity-panel" v-if="item.type === 1">
-        <ul class="box">
-          <li class="content" v-for="(iitem,j) in item.panelContents" :key="j" @click="linkTo(iitem)">
-
-            <a class="cover-link"></a>
-          </li>
-        </ul>
-      </div>
-
-      <section class="w mt30 clearfix" v-if="item.type === 2">
-        <y-shelf :title="item.name">
-          <div slot="content" class="hot">
-            <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j"></mall-goods>
-          </div>
-        </y-shelf>
-      </section>
-
-      <section class="w mt30 clearfix" v-if="item.type === 3">
-        <y-shelf :title="item.name">
-          <div slot="content" class="floors" >
-            <div class="imgbanner" v-for="(iitem,j) in item.panelContents" :key="j" v-if="iitem.type === 2 || iitem.type === 3" @click="linkTo(iitem)">
-              <img v-lazy="iitem.picUrl">
-              <a class="cover-link"></a>
-            </div>
-            <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j+'key'" v-if="iitem.type != 2 && iitem.type != 3"></mall-goods>
-          </div>
-        </y-shelf>
-      </section>
-
-      </div>
   </div>
     </el-container>
   </div>
@@ -123,9 +66,12 @@
   import mallGoods from '@/components/mallGoods'
   import YButton from '@/components/YButton'
   import YShelf from '@/components/shelf'
+  import {getMemberList} from '@/api/article'
   export default {
     data () {
       return {
+        list: [],
+        src: [],
         goods: [],
         noResult: false,
         error: false,
@@ -148,6 +94,19 @@
         this.pageSize = val
         this._getAllGoods()
         this.loading = true
+      },
+        getList(){
+          var params = {
+              category_name: ['学术骨干','固定研究人员','流动研究人员'],
+          }
+          getMemberList(params).then(response => {
+              console.log('listResponse======>',response)
+              this.list = response.data
+              console.log('list',this.list)
+          }).catch((e) => {
+              console.log(e)
+              this.list = []
+          })
       },
       team1() {
         document.getElementById('team1').style.display = 'block'
@@ -228,7 +187,8 @@
       }
     },
     created () {
-    },
+        this.getList()
+   },
     mounted () {
       this.windowHeight = window.innerHeight
       this.windowWidth = window.innerWidth
@@ -365,5 +325,24 @@ body > .el-container {
  .left-nav{
    height: 25px;
  }
-
+ img {
+   height: 100%;
+   display: table-cell;
+   vertical-align: middle;
+ }
+ .form-control{
+   height: 100%;
+   float:left;
+   display: table-cell;
+    text-indent: 2em;
+    font-size: 18px;
+    letter-spacing: 3px;
+    line-height: 23px;
+    text-align: justify;
+   margin-top: 2%;
+   vertical-align: middle;
+ }
+  .form-group{
+    height: 200px;
+  }
 </style>

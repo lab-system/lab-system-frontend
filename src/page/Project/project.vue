@@ -35,59 +35,59 @@
           <div class="box box-default" style="height: 500px">
             <div id="project1" class="box-header with-border" style="list-style: none;display: block">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">重大课题</h3>
-               <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">“十三五”项目</a>
+             <ul id="articleTitle1">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 46">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick1(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-                <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">科技部基础性工作专项</a>
-                </li>
-                 <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">国家科技惠民计划</a>
-                </li>
-              </ul>
+                 </ul>
+                <div id= "articleContent1"  v-for="item in list" v-if="item.id === id">
+                   <div class="title">{{ item.title }}</div>
+              <div  class="articleContent">{{ item.content }}</div>
+            </div>
             </div>
             <div id="project2" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">国家级课题</h3>
-               <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">“十三五”项目</a>
+              <ul id="articleTitle2">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 47">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick2(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-                <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">科技部基础性工作专项</a>
-                </li>
-                 <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">国家科技惠民计划</a>
-                </li>
-              </ul>
+                 </ul>
+                <div  id= "articleContent2"  v-for="item in list" v-if="item.id === id">
+                   <div class="title">{{ item.title }}</div>
+              <div class="articleContent">{{ item.content }}</div>
+            </div>
             </div>
              <div id="project3" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">省部课题</h3>
-                <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">“十三五”项目</a>
+               <ul id="articleTitle3">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 48">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick3(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-                <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">科技部基础性工作专项</a>
-                </li>
-                 <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">国家科技惠民计划</a>
-                </li>
-              </ul>
+                 </ul>
+                <div  class="articleContent" id= "articleContent3"  v-for="item in list" v-if="item.id === id">
+                    <div class="title">{{ item.title }}</div>
+              <div class="articleContent">{{ item.content }}</div>
+            </div>
             </div>
              <div id="project4" class="box-header with-border" style="list-style: none;display: none">
               <h3 class="box-title" style="display:inline;margin-left: 20px;margin-top: 10px">横向课题</h3>
-                <ul style="margin-top: 10px">
-                <li  style="margin-top: 20px">
-                  <a style="text-decoration:underline;">“十三五”项目</a>
+              <ul id="articleTitle4">
+                <li v-for="item in list" :key="item.title" style="margin-top: 20px" v-if="item.category === 49">
+                  <a style="text-decoration:underline;" src="item.title" @click="articleClick4(item.id)">
+                    {{ item.title }}
+                  </a>
                 </li>
-                <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">科技部基础性工作专项</a>
-                </li>
-                 <li  style="margin-top: 15px">
-                  <a style="text-decoration: underline">国家科技惠民计划</a>
-                </li>
-              </ul>
+                 </ul>
+                <div  id= "articleContent4"  v-for="item in list" v-if="item.id === id">
+                   <div class="title">{{ item.title }}</div>
+              <div class="articleContent">{{ item.content }}</div>
+            </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -140,9 +140,12 @@
   import mallGoods from '@/components/mallGoods'
   import YButton from '@/components/YButton'
   import YShelf from '@/components/shelf'
+  import { getArticleList } from '@/api/article'
   export default {
     data () {
       return {
+        id: '',
+        list:[],
         goods: [],
         noResult: false,
         error: false,
@@ -166,29 +169,75 @@
         this._getAllGoods()
         this.loading = true
       },
+      getList(){
+          var params = {
+              category_name: ['重大课题','国家级课题','省部级课题','横向课题'],
+              tags_name: '科研项目'
+          }
+          getArticleList(params).then(response => {
+              console.log('listResponse======>',response)
+              this.list = response.data
+              console.log('list',this.list)
+          }).catch((e) => {
+              console.log(e)
+              this.list = []
+          })
+      },
+        articleClick1(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle1').style.display = 'none'
+         document.getElementById('articleContent1').style.display = 'block'
+      },
+         articleClick2(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle2').style.display = 'none'
+         document.getElementById('articleContent2').style.display = 'block'
+      },
+         articleClick3(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle3').style.display = 'none'
+         document.getElementById('articleContent3').style.display = 'block'
+      },
+         articleClick4(id) {
+         this.id = id
+          console.log('id',id)
+         document.getElementById('articleTitle4').style.display = 'none'
+         document.getElementById('articleContent4').style.display = 'block'
+      },
       project1() {
         document.getElementById('project1').style.display = 'block'
         document.getElementById('project2').style.display = 'none'
         document.getElementById('project3').style.display = 'none'
         document.getElementById('project4').style.display = 'none'
+           document.getElementById('articleContent1').style.display = 'none'
+        document.getElementById('articleTitle1').style.display = 'block'
       },
       project2() {
         document.getElementById('project2').style.display = 'block'
         document.getElementById('project1').style.display = 'none'
         document.getElementById('project3').style.display = 'none'
         document.getElementById('project4').style.display = 'none'
+           document.getElementById('articleContent2').style.display = 'none'
+        document.getElementById('articleTitle2').style.display = 'block'
       },
       project3() {
         document.getElementById('project3').style.display = 'block'
         document.getElementById('project2').style.display = 'none'
         document.getElementById('project1').style.display = 'none'
         document.getElementById('project4').style.display = 'none'
+           document.getElementById('articleContent3').style.display = 'none'
+        document.getElementById('articleTitle3').style.display = 'block'
       },
       project4() {
         document.getElementById('project4').style.display = 'block'
         document.getElementById('project2').style.display = 'none'
         document.getElementById('project3').style.display = 'none'
         document.getElementById('project1').style.display = 'none'
+           document.getElementById('articleContent4').style.display = 'none'
+        document.getElementById('articleTitle4').style.display = 'block'
       },
       handleCurrentChange (val) {
         this.currentPage = val
@@ -254,6 +303,7 @@
       }
     },
     created () {
+        this.getList()
     },
     mounted () {
       this.windowHeight = window.innerHeight
@@ -391,5 +441,16 @@ body > .el-container {
  .left-nav{
    height: 25px;
  }
-
+.articleContent{
+  margin-top: 2%;
+    text-indent: 2em;
+    font-size: 20px;
+    letter-spacing: 3px;
+    line-height: 25px;
+    text-align: justify;
+}
+.title{
+   text-align: center;
+    font-size: 26px;
+}
 </style>

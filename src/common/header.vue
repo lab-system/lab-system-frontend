@@ -53,6 +53,9 @@
                  <li>
                   <a @click="changGoods(-8)" :class="{active:choosePage===-8}">系统管理</a>
                 </li>
+                 <li>
+                  <a @click="changGoods(-9)" :class="{active:choosePage===-9}"></a>
+                </li>
                 <li v-for="(item,i) in navList" :key="i">
                   <a @click="changGoods(i, item)" :class="{active:i===choosePage}">{{item.picUrl}}</a>
                 </li>
@@ -174,6 +177,10 @@
         } else if (v === -8) {
           this.$router.push({
             path: 'login'
+          })
+        } else if (v === -9) {
+          this.$router.push({
+            path: '/articleContent'
           })
         } else {
           // 站内跳转
@@ -308,6 +315,8 @@
           this.changePage(-7)
         } else if (path === 'login') {
           this.changePage(-8)
+        } else if (path === '/articleContent') {
+          this.changePage(-9)
         } else {
           this.changePage(0)
         }

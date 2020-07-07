@@ -37,6 +37,7 @@ const Index = () => import('@/page/index')
 // const Login = () => import('@/views/login/index')
 // const Register = () => import('@/page/Login/register')
 const Home = () => import('@/page/Home/home')
+const ArticleContent = () => import('@/page/ArticleContent/articleContent')
 const GoodS = () => import('@/page/Goods/goods')
 const Team = () => import('@/page/Team/team')
 const Train = () => import('@/page/Train/train')
@@ -76,6 +77,7 @@ export const constantRouterMap = [
     redirect: '/home',
     children: [
       { path: 'home', component: Home, hidden: true },
+      { path: 'articleContent', component: ArticleContent, hidden: true },
       { path: 'goods', component: GoodS, hidden: true },
       { path: 'team', component: Team, hidden: true },
       { path: 'train', component: Train, hidden: true },

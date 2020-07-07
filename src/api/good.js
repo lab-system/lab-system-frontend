@@ -1,11 +1,17 @@
 import request from '@/utils/request'
 
 // 物品列表
-export function getGoodList(params) {
+export function getGoodList(id) {
   return request({
-    url: '/goods/good/',
-    method: 'get',
-    params: params
+    url: '/goods/good/' + id + '/',
+    method: 'get'
+  })
+}
+
+export function getArticle(id) {
+  return request({
+    url: 'article/article' + id + '/',
+    method: 'get'
   })
 }
 

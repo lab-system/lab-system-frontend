@@ -49,7 +49,9 @@
           <form  method="post">
               <div class="col-md-6">
                           <div class="form-group">
-                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  placeholder="中国海洋大学软工实验室是国内知名……" name="noticeContent"></textarea>
+                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                      v-for="item in list" :key="item.content" v-if="item.category === 41">{{ item.content }}
+                            </textarea>
                           </div>
                         <div class="form-group"><br></div>
               </div>
@@ -69,7 +71,9 @@
           <form  method="post">
               <div class="col-md-6">
                           <div class="form-group">
-                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  placeholder="本实验室的主要研究方向是……" name="noticeContent"></textarea>
+                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                      v-for="item in list" :key="item.content" v-if="item.category === 42">{{ item.content }}
+                            </textarea>
                           </div>
                         <div class="form-group"><br></div>
               </div>
@@ -89,7 +93,9 @@
           <form  method="post">
               <div class="col-md-6">
                           <div class="form-group">
-                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  placeholder="本实验室的现任领导是王勇教授……" name="noticeContent"></textarea>
+                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                      v-for="item in list1" :key="item.introduction" v-if="item.category === 16">{{ item.introduction }}
+                            </textarea>
                           </div>
                         <div class="form-group"><br></div>
               </div>
@@ -109,7 +115,9 @@
           <form  method="post">
               <div class="col-md-6">
                           <div class="form-group">
-                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  placeholder="本实验室的第一任领导是……" name="noticeContent"></textarea>
+                             <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                      v-for="item in list1" :key="item.introduction" v-if="item.category === 17">{{ item.introduction }}
+                            </textarea>
                           </div>
                         <div class="form-group"><br></div>
               </div>
@@ -129,7 +137,9 @@
           <form  method="post">
               <div class="col-md-6">
                           <div class="form-group">
-                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  placeholder="本实验室的学术委员会成员有……" name="noticeContent"></textarea>
+                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                      v-for="item in list1" :key="item.introduction" v-if="item.category === 18">{{ item.introduction }}
+                            </textarea>
                           </div>
                         <div class="form-group"><br></div>
               </div>
@@ -141,46 +151,9 @@
   </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-
-            </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-        </div>
-
-        <div v-for="(item,i) in home" :key="i">
-
-          <div class="activity-panel" v-if="item.type === 1">
-            <ul class="box">
-              <li class="content" v-for="(iitem,j) in item.panelContents" :key="j" @click="linkTo(iitem)">
-
-                <a class="cover-link"></a>
-              </li>
-            </ul>
-          </div>
-
-          <section class="w mt30 clearfix" v-if="item.type === 2">
-            <y-shelf :title="item.name">
-              <div slot="content" class="hot">
-                <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j"></mall-goods>
-              </div>
-            </y-shelf>
-          </section>
-
-          <section class="w mt30 clearfix" v-if="item.type === 3">
-            <y-shelf :title="item.name">
-              <div slot="content" class="floors">
-                <div class="imgbanner" v-for="(iitem,j) in item.panelContents" :key="j"
-                     v-if="iitem.type === 2 || iitem.type === 3" @click="linkTo(iitem)">
-                  <img v-lazy="iitem.picUrl">
-                  <a class="cover-link"></a>
-                </div>
-                <mall-goods :msg="iitem" v-for="(iitem,j) in item.panelContents" :key="j+'key'"
-                            v-if="iitem.type != 2 && iitem.type != 3"></mall-goods>
-              </div>
-            </y-shelf>
-          </section>
         </div>
       </div>
     </el-container>
@@ -192,10 +165,14 @@ import { recommend } from '@/api/index'
 import mallGoods from '@/components/mallGoods'
 import YButton from '@/components/YButton'
 import YShelf from '@/components/shelf'
+import { getArticleList } from '@/api/article'
+import {getMemberList} from '@/api/article'
 
 export default {
      data() {
              return {
+                list: [],
+                list1: [],
                 goods: [],
                 noResult: false,
                 error: false,
@@ -224,6 +201,33 @@ export default {
                 this._getAllGoods()
                 this.loading = true
             },
+             getList(){
+          var params = {
+              category_name: ['实验室简介','研究方向','现任领导','历任领导','学术委员会'],
+              tags_name: '实验室概况',
+          }
+          getArticleList(params).then(response => {
+              console.log('listResponse======>',response)
+              this.list = response.data
+              console.log('list',this.list)
+          }).catch((e) => {
+              console.log(e)
+              this.list = []
+          })
+      },
+          getList1(){
+          var params = {
+              category_name: ['现任领导','历任领导','学术委员会']
+          }
+          getMemberList(params).then(response => {
+              console.log('listResponse1======>',response)
+              this.list1 = response.data
+              console.log('list1',this.list1)
+          }).catch((e) => {
+              console.log(e)
+              this.list1 = []
+          })
+      },
             intro1() {
       document.getElementById('intro1').style.display = 'block'
       document.getElementById('intro2').style.display = 'none'
@@ -318,6 +322,8 @@ export default {
             }
         },
         created() {
+         this.getList(),
+         this.getList1()
         },
         mounted() {
             this.windowHeight = window.innerHeight
@@ -474,4 +480,11 @@ export default {
     height: 25px;
   }
 
+  .form-control{
+     text-indent: 2em;
+    font-size: 20px;
+    letter-spacing: 3px;
+    line-height: 25px;
+    text-align: justify;
+  }
 </style>
