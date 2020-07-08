@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <el-row type="flex" class="row" span="20" gutter="20">
+    <el-row type="flex" class="row" span="20" gutter="20" >
         <el-col class="col" style="width:30%;" >
           <div class="cradcol" style="height: 100%">
 <!--            <a href="/src/page/Goods/goods.vue" style="height: 100%">-->
@@ -19,36 +19,36 @@
         </el-col>
 
         <el-col class="col" style="width:40%;">
-          <div id="banner" style="height: 80%">
-    <el-carousel style="height: 100%">
-      <el-carousel-item v-for="item in imglist" :key="item" style="height: 100%">
-        <img :src="item" alt style="width:100%;height:100%;position: absolute"/>
+          <div id="banner" style="height: 75%">
+<!--    <el-carousel style="height: 100%;position: relative">-->
+        <el-carousel indicator-position="outside" :height="bannerHeight + 'px'" style="position: relative">
+      <el-carousel-item v-for="item in imglist" :key="item" style="height: 100%;position: absolute">
+        <img :src="item" alt style="width:100%;height:100%;"/>
       </el-carousel-item>
     </el-carousel>
   </div>
         </el-col>
 
         <el-col class="col" style="width: 30%;height: 100%;">
-        <div style="height: 35%;text-align:center;" >
-            <li style="margin-top: 0%;height: 100%" v-for="item in list" v-if="item.id === 299">
-              <a @click="messageClick(item.id)">
+        <div style="height:35%;text-align:center;">
+         <li style="margin-top: 0%;height: 100%;" v-for="item in list" v-if="item.id === 299">
+              <a @click="messageClick(item.id)" style="height: 100%">
             <img src="src/img/1.jpg" style="width: 100%"/>
             <span style="position: absolute;bottom: 10%;text-align:center;display:block;
-            width:100%;color: white">{{ item.title }}</span></a>
+            width:100%;color: white">{{ item.title }}</span>
+              </a>
             </li>
-  </div>
-
-         <div style="height: 35%;text-align:center;margin-top: 5%">
+        </div>
+         <div style="height: 35%;text-align:center;margin-top: 5%;">
            <li style="margin-top: 0%;height: 100%" v-for="item in list" v-if="item.id === 271">
               <a @click="messageClick(item.id)" style="text-align: center">
             <img src="src/img/6.jpg" style="width: 100%"/>
             <span style="position: absolute;bottom: 10%;text-align:center;display:block;
             width:100%;color: black">{{ item.title }}</span></a>
             </li>
-  </div>
+         </div>
         </el-col>
 </el-row>
-
 
   </div>
 </template>
@@ -71,15 +71,19 @@
 
       // 图片父容器高度
 
-      bannerHeight:320,
+      bannerHeight:400,
 
       // 浏览器宽度
 
-      screenWidth: 0
-
+      screenWidth: 0,
+      screeHeight:0
           };
       },
       methods: {
+          setSize:function () {
+              this.bannerHeight = 300/1366 *this.screenWidth
+              // this.bannerHeight = 300/768*this.screeHeight
+          },
          getList(){
           var params = {
               category_name: ['最新消息','毕业咨询'],
@@ -94,13 +98,13 @@
               this.list = []
           })
       },
-           setSize: function() {
-
-      // 通过浏览器宽度(图片宽度)计算高度
-
-      this.bannerHeight = (320 / 1920) * this.screenWidth;
-
-    },
+    //        setSize: function() {
+    //
+    //   // 通过浏览器宽度(图片宽度)计算高度
+    //
+    //   this.bannerHeight = (320 / 1920) * this.screenWidth;
+    //
+    // },
       messageClick(id){
             this.$router.push({
             path: '/articleContent',
@@ -118,6 +122,7 @@
     // 首次加载时,需要调用一次
 
     this.screenWidth = window.innerWidth;
+    this.screeHeight = window.innerHeight;
 
     this.setSize();
 
@@ -126,6 +131,7 @@
     window.onresize = () => {
 
       this.screenWidth = window.innerWidth;
+      this.screeHeight = window.innerHeight;
 
       this.setSize();
 
@@ -136,24 +142,30 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  html,body,#banner {
+  html,body{
+    width: 100%;
+    height: 100%;
+  }
+#banner {
     height:100%;
-    position: relative;
+    /*position: relative;*/
   }
 img {
   width: 100%;
   height: 100%;
   display: block;
   /*position: absolute;*/
+  /*max-width: 100%;*/
+  /*max-height: 100%;*/
 }
- html,body,.home {
+  .home {
     display: flex;
     flex-direction: column;
-    /*width: 1366px;*/
     width: 100%;
-    /*height: 500px;*/
-    height: 100%;
-   position: relative;
+    /*width: 100%;*/
+    height: 500px;
+    /*height: 100%;*/
+   /*position: relative;*/
   }
     .row {
     width:100%;
@@ -164,7 +176,7 @@ img {
   }
   .col {
     height:100%;
-    width:auto;
+    width:100%;
     border-color: #1e6abc;
     margin-left: 20px;
     /*position:relative;*/
@@ -175,7 +187,7 @@ img {
   }
 
   .clearfix {
-    opacity: 1;
+    /*opacity: 1;*/
     height: 100%;
   }
   .box-card {
