@@ -49,9 +49,8 @@
           <form  method="post">
               <div class="col-md-6">
                           <div class="form-group">
-                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list" :key="item.content" v-if="item.category_name === '实验室简介'">{{ item.content }}
-                            </textarea>
+                            <div class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                      v-for="item in list" :key="item.content" v-if="item.category_name === '实验室简介'" v-html="item.content"></div>
                           </div>
                         <div class="form-group"><br></div>
               </div>
@@ -70,12 +69,11 @@
         <div class="box-header">
           <form  method="post">
               <div class="col-md-6">
-                          <div class="form-group">
-                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list" :key="item.content" v-if="item.category_name === '研究方向'">{{ item.content }}
-                            </textarea>
-                          </div>
-                        <div class="form-group"><br></div>
+                      <div class="form-group">
+                        <div class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                  v-for="item in list" :key="item.content" v-if="item.category_name === '研究方向'" v-html="item.content"></div>
+                      </div>
+                    <div class="form-group"><br></div>
               </div>
           </form>
         </div>
@@ -93,9 +91,8 @@
           <form  method="post">
               <div class="col-md-6">
                           <div class="form-group">
-                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list1" :key="item.introduction" v-if="item.category_name === '现任领导'">{{ item.introduction }}
-                            </textarea>
+                            <div class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                  v-for="item in list1" :key="item.introduction" v-if="item.category_name === '现任领导'" v-html="item.introduction"></div>
                           </div>
                         <div class="form-group"><br></div>
               </div>
@@ -115,9 +112,8 @@
           <form  method="post">
               <div class="col-md-6">
                           <div class="form-group">
-                             <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list1" :key="item.introduction" v-if="item.category_name === '历任领导'">{{ item.introduction }}
-                            </textarea>
+                            <div class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                  v-for="item in list1" :key="item.introduction" v-if="item.category_name === '历任领导'" v-html="item.introduction"></div>
                           </div>
                         <div class="form-group"><br></div>
               </div>
@@ -137,9 +133,8 @@
           <form  method="post">
               <div class="col-md-6">
                           <div class="form-group">
-                            <textarea class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
-                                      v-for="item in list1" :key="item.introduction" v-if="item.category_name === '学术委员会'">{{ item.introduction }}
-                            </textarea>
+                            <div class="form-control" style="width: 70%"  rows="13" cols="20"  name="noticeContent"
+                                  v-for="item in list1" :key="item.introduction" v-if="item.category_name === '学术委员会'" v-html="item.introduction"></div>
                           </div>
                         <div class="form-group"><br></div>
               </div>
