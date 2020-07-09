@@ -31,7 +31,7 @@
 
         <el-col class="col" style="width: 30%;height: 100%;">
         <div style="height:35%;text-align:center;">
-         <li style="margin-top: 0%;height: 100%;" v-for="item in list" v-if="item.id === 299">
+         <li style="margin-top: 0%;height: 100%;" v-for="item in list" v-if="item.article_id === 55">
               <a @click="messageClick(item.id)" style="height: 100%">
             <img src="src/img/1.jpg" style="width: 100%"/>
             <span style="position: absolute;bottom: 10%;text-align:center;display:block;
@@ -40,7 +40,7 @@
             </li>
         </div>
          <div style="height: 35%;text-align:center;margin-top: 5%;">
-           <li style="margin-top: 0%;height: 100%" v-for="item in list" v-if="item.id === 271">
+           <li style="margin-top: 0%;height: 100%" v-for="item in list" v-if="item.article_id === 70">
               <a @click="messageClick(item.id)" style="text-align: center">
             <img src="src/img/6.jpg" style="width: 100%"/>
             <span style="position: absolute;bottom: 10%;text-align:center;display:block;
