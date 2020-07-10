@@ -31,7 +31,7 @@
 
         <el-col class="col" style="width: 30%;height: 100%;">
         <div style="height:35%;text-align:center;">
-         <li style="margin-top: 0%;height: 100%;" v-for="item in list" v-if="item.article_id === 55">
+         <li style="margin-top: 0%;height: 100%;" v-for="item in list2" v-if="item.article_id === 2">
               <a @click="messageClick(item.id)" style="height: 100%">
             <img src="src/img/1.jpg" style="width: 100%"/>
             <span style="position: absolute;bottom: 10%;text-align:center;display:block;
@@ -40,7 +40,7 @@
             </li>
         </div>
          <div style="height: 35%;text-align:center;margin-top: 5%;">
-           <li style="margin-top: 0%;height: 100%" v-for="item in list" v-if="item.article_id === 70">
+           <li style="margin-top: 0%;height: 100%" v-for="item in list2" v-if="item.article_id === 3">
               <a @click="messageClick(item.id)" style="text-align: center">
             <img src="src/img/6.jpg" style="width: 100%"/>
             <span style="position: absolute;bottom: 10%;text-align:center;display:block;
@@ -61,6 +61,7 @@
   export default {
       data() {
           return {
+            list2:[],
               list: [],
                imglist: [
            require('../../img/1.jpg'),
@@ -98,6 +99,20 @@
               this.list = []
           })
       },
+        getRightList() {
+          var params = {
+              category_name: '',
+              tags_name: ''
+          }
+          getArticleList(params).then(response => {
+              console.log('listResponse======>',response)
+              this.list2 = response.data
+              console.log('list',this.list2)
+          }).catch((e) => {
+              console.log(e)
+              this.list2 = []
+          })
+        },
     //        setSize: function() {
     //
     //   // 通过浏览器宽度(图片宽度)计算高度
@@ -116,6 +131,7 @@
       },
        created() {
         this.getList()
+         this.getRightList()
     },
         mounted() {
 
