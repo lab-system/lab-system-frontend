@@ -19,8 +19,8 @@
       methods:{
            getList(){
           var params = {
-              category_name: ['最新消息','毕业咨询'],
-              tags_name: '公告栏'
+              category_name: '',
+              tags_name: ''
           }
           getArticleList(params).then(response => {
               console.log('listResponse======>',response)
